@@ -1,0 +1,11 @@
+{
+  "id": "community.batteryglow",
+  "title": "Battery Glow",
+  "version": "1.0.0",
+  "description": "Shows a small glow while your battery is charging.",
+  "minAndroidApi": 31,
+  "capabilities": ["overlay"],
+  "trigger": "battery.charging",
+  "effect": "overlay.glow",
+  "settings": {"color": "#B48CFF", "intensity": 45}
+}

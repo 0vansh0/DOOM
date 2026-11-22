@@ -1,0 +1,79 @@
+{
+  "projectFormatVersion": 1,
+  "id": "template-charging-companion",
+  "title": "Charging Companion",
+  "manifest": {
+    "schemaVersion": 3,
+    "id": "local.chargingcompanion",
+    "name": "Charging Companion",
+    "version": "1.0.0",
+    "description": "A declarative DOOM mod built with the Visual Mod Builder.",
+    "author": "Local developer",
+    "license": "MIT",
+    "minAndroidApi": 31,
+    "modType": "declarative",
+    "entry": "mod.json",
+    "icon": "",
+    "capabilities": [
+      "battery.read",
+      "overlay.render"
+    ],
+    "sdkApiVersion": 2
+  },
+  "definition": {
+    "definitionVersion": 4,
+    "triggers": [
+      {
+        "id": "charging-workflow",
+        "event": "battery.charging.started",
+        "condition": {
+          "op": "compare",
+          "source": "battery.charging",
+          "comparison": "equals",
+          "value": true
+        },
+        "workflow": {
+          "id": "charging-sequence",
+          "executionMode": "sequential",
+          "failurePolicy": "stopOnFailure",
+          "timeoutMs": 12000
+        },
+        "actions": [
+          {
+            "id": "ring",
+            "effect": "overlay.show",
+            "template": "battery-ring",
+            "parameters": {
+              "color": {
+                "$setting": "color"
+              },
+              "durationMs": 5000
+            }
+          },
+          {
+            "id": "message",
+            "effect": "overlay.show",
+            "template": "floating-card",
+            "parameters": {
+              "message": "Charging started",
+              "durationMs": 5000
+            }
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "enabled": {
+        "type": "boolean",
+        "label": "Enabled",
+        "default": true
+      },
+      "color": {
+        "type": "color",
+        "label": "Ring color",
+        "default": "#A78BFA"
+      }
+    }
+  },
+  "positions": {}
+}

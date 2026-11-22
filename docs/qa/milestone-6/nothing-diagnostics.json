@@ -1,0 +1,74 @@
+{
+  "formatVersion": 1,
+  "doomVersion": "0.1.0",
+  "androidApi": 36,
+  "deviceCapabilities": {
+    "androidApi": 36,
+    "powerSaving": false,
+    "capabilities": [
+      {
+        "id": "battery.read",
+        "tier": "STANDARD",
+        "status": "AVAILABLE",
+        "doomApprovalRequired": true,
+        "androidConsent": "none",
+        "probe": "sticky battery broadcast"
+      },
+      {
+        "id": "overlay.render",
+        "tier": "STANDARD",
+        "status": "AVAILABLE",
+        "doomApprovalRequired": true,
+        "androidConsent": "SYSTEM_ALERT_WINDOW",
+        "probe": "Settings.canDrawOverlays"
+      },
+      {
+        "id": "clock.read",
+        "tier": "STANDARD",
+        "status": "AVAILABLE",
+        "doomApprovalRequired": true,
+        "androidConsent": "none",
+        "probe": "java.time.Clock"
+      },
+      {
+        "id": "ui.preview",
+        "tier": "STANDARD",
+        "status": "AVAILABLE",
+        "doomApprovalRequired": true,
+        "androidConsent": "none",
+        "probe": "foreground DOOM UI"
+      },
+      {
+        "id": "device.power.read",
+        "tier": "STANDARD",
+        "status": "AVAILABLE",
+        "doomApprovalRequired": true,
+        "androidConsent": "none",
+        "probe": "PowerManager service"
+      },
+      {
+        "id": "haptics.vibrate",
+        "tier": "STANDARD",
+        "status": "AVAILABLE",
+        "doomApprovalRequired": true,
+        "androidConsent": "VIBRATE normal permission",
+        "probe": "VibratorManager.defaultVibrator.hasVibrator"
+      }
+    ]
+  },
+  "runtimeLatency": {
+    "manual_dispatch": {
+      "samples": 2,
+      "p50Us": 71,
+      "p95Us": 1536
+    }
+  },
+  "mods": [
+    {
+      "id": "community.batteryglow",
+      "version": "1.0.0",
+      "status": "READY_TO_ACTIVATE",
+      "events": []
+    }
+  ]
+}

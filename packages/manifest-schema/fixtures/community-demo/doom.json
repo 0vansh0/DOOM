@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 2,
+  "id": "local.ambercard",
+  "name": "Amber Card",
+  "version": "1.0.0",
+  "description": "A manually triggered in-app card using the public declarative format.",
+  "author": "Sample developer",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "ui.preview"
+  ]
+}

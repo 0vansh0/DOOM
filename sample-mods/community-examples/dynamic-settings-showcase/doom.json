@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 3,
+  "id": "community.dynamicsettingsshowcase",
+  "name": "Dynamic Settings Showcase",
+  "version": "1.0.0",
+  "description": "Schema-driven color, size, thickness and duration showcase.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "ui.preview"
+  ],
+  "sdkApiVersion": 2
+}

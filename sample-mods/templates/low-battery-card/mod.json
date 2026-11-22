@@ -1,0 +1,43 @@
+{
+  "definitionVersion": 3,
+  "triggers": [
+    {
+      "event": "mod.manual.trigger",
+      "condition": "battery-below-setting",
+      "effect": "show",
+      "setting": "threshold"
+    }
+  ],
+  "effects": [
+    {
+      "id": "show",
+      "effect": "ui.preview.show",
+      "template": "floating-card",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 45
+    },
+    "options": [
+      {
+        "id": "threshold",
+        "type": "integer",
+        "min": 1,
+        "max": 100,
+        "default": 25
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "definitionVersion": 2,
+  "triggers": [
+    {
+      "event": "mod.manual.trigger",
+      "effect": "card"
+    }
+  ],
+  "effects": [
+    {
+      "id": "card",
+      "effect": "ui.preview.show",
+      "template": "floating-card",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#F49A53"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 50
+    }
+  }
+}

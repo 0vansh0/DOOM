@@ -1,0 +1,28 @@
+{
+  "definitionVersion": 3,
+  "triggers": [
+    {
+      "event": "mod.manual.trigger",
+      "condition": "always",
+      "effect": "show"
+    }
+  ],
+  "effects": [
+    {
+      "id": "show",
+      "effect": "haptics.pulse"
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 45
+    }
+  }
+}

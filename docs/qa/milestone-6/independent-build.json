@@ -1,0 +1,14 @@
+{
+  "hostSha256": "a20145bb0bf2cba228e77ad542dacbd615b5bb65759cbd15f9065d2ffd80453c",
+  "packageSha256": "3c90a1f837081a0b4bfd9c92f5bb7c2d469f6998f4564cada349420baa17b51d",
+  "id": "local.m6community",
+  "template": "low-battery-card",
+  "threshold": 100,
+  "hostRebuildAfterPackageCreation": false,
+  "hostSha256AfterSdkPackageBuild": "a20145bb0bf2cba228e77ad542dacbd615b5bb65759cbd15f9065d2ffd80453c",
+  "physicalDevice": "Nothing A001, Android 16 API 36",
+  "importedVia": "Android document picker",
+  "manualPreviewObserved": true,
+  "settingsPersistedAfterForceStop": true,
+  "uninstalledAndVerifiedCleanup": true
+}

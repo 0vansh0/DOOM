@@ -1,0 +1,31 @@
+{
+  "case": "reset restores threshold default and manual event renders preview",
+  "passed": true,
+  "labels": [
+    "M6 Community",
+    "Back",
+    "Version 1.0.0 \u00b7 READY_TO_ACTIVATE",
+    "A public SDK API 2 low-battery-card mod.",
+    "Author (unverified): Your name",
+    "License: MIT",
+    "ACTIVE \u00b7 Listening for declared events",
+    "Run mod test",
+    "Active in-app preview",
+    "DOOM",
+    "Dismiss effect",
+    "Read battery and charging state",
+    "Read battery and charging state",
+    "Show a preview inside DOOM",
+    "Show a preview inside DOOM",
+    "Enable mod",
+    "Enable mod",
+    "Appearance",
+    "#B48CFF",
+    "Glow color",
+    "Six-digit hex color, such as #B48CFF",
+    "Home",
+    "Discover",
+    "Installed",
+    "Settings"
+  ]
+}

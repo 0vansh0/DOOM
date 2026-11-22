@@ -1,0 +1,1 @@
+{"formatVersion":1,"scenarios":[{"id":"manual-haptic","event":{"event":"mod.manual.trigger"},"expected":{"conditionResult":true,"actionSequence":["mod.manual.trigger:show"],"suppressedActions":[]}}]}

@@ -1,0 +1,23 @@
+name: Pull request validation
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  release-policy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - name: Validate documentation links and local maintenance tools
+        run: |
+          node tools/maintenance/check-doc-links.mjs
+          node --test tools/maintenance/*.test.mjs
+      - name: Validate Gradle wrapper
+        uses: gradle/actions/wrapper-validation@v4
+      - name: Reject tracked signing containers
+        run: |
+          if git ls-files | grep -Ei '\.(keystore|jks|p12|pfx)$'; then exit 1; fi

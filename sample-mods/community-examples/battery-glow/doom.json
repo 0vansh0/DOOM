@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 3,
+  "id": "community.batteryglow",
+  "name": "Battery Glow",
+  "version": "1.0.0",
+  "description": "Charging ring and card using public overlay templates.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "overlay.render"
+  ],
+  "sdkApiVersion": 2
+}

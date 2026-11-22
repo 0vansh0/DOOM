@@ -1,0 +1,10 @@
+{
+  "name": "doom-product-site",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local-only static DOOM product website",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test"
+  }
+}

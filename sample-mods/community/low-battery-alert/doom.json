@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 3,
+  "id": "community.lowbatteryalert",
+  "name": "Low Battery Alert",
+  "version": "1.0.0",
+  "description": "Shows a DOOM floating card at or below 20% battery while unplugged.",
+  "author": "Community SDK sample author (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": ["battery.read", "ui.preview"],
+  "sdkApiVersion": 2
+}

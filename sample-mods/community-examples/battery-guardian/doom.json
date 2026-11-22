@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 3,
+  "id": "community.batteryguardian",
+  "name": "Battery Guardian",
+  "version": "1.0.0",
+  "description": "Configurable low-battery alert using battery events and in-app preview.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "ui.preview"
+  ],
+  "sdkApiVersion": 2
+}

@@ -1,0 +1,40 @@
+npm warn Unknown env config "global-ignore-file". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+> doom-mod-cli@0.3.0 build
+> tsc && node scripts/copy-schema.mjs
+
+✔ create a project, validate, package and inspect (2448.6626ms)
+✔ release package is reproducible byte for byte (659.7608ms)
+✔ reject unknown capability and invalid settings range (1263.1079ms)
+✔ reject duplicate JSON keys, traversal and deceptive asset files (11.6921ms)
+✔ validates v2 event bindings and rejects references without capability approval declarations (12.4356ms)
+✔ validates alpha ring geometry and manual-only community package (11.9717ms)
+✔ shared SDK conformance: power-card (8.9716ms)
+✔ shared SDK conformance: focus-pulse (2.6906ms)
+✔ shared SDK conformance: low-battery-card (1.1071ms)
+✔ shared SDK conformance: unknown-sdk (1.5275ms)
+✔ shared SDK conformance: unknown-manifest (0.5763ms)
+✔ shared SDK conformance: mixed-sdk-definition (0.4623ms)
+✔ shared SDK conformance: unknown-condition (0.6349ms)
+✔ shared SDK conformance: missing-power-capability (0.7381ms)
+✔ shared SDK conformance: unknown-capability (0.8158ms)
+✔ shared SDK conformance: unknown-event (1.4108ms)
+✔ shared SDK conformance: unknown-action (0.755ms)
+✔ shared SDK conformance: invalid-setting-type (0.7941ms)
+✔ shared SDK conformance: invalid-setting-range (0.8265ms)
+✔ shared SDK conformance: unknown-setting (0.5741ms)
+✔ shared SDK conformance: haptic-template-forbidden (0.5857ms)
+✔ shared SDK conformance: condition-needs-battery (0.634ms)
+✔ shared SDK conformance: configurable-threshold (1.1448ms)
+✔ shared SDK conformance: unresolved-setting (0.7657ms)
+✔ shared SDK conformance: duplicate-options (0.6145ms)
+✔ shared SDK conformance: option-default-outside-range (0.6121ms)
+✔ SDK2 templates create independently, package and inspect (5416.0822ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6366.2741

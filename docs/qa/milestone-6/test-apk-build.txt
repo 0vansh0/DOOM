@@ -1,0 +1,40 @@
+> Task :core-designsystem:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-discover:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-discover:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-discover:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-home:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-home:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-home:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-installed:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-installed:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-installed:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-mod-details:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-mod-details:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-mod-details:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :feature-settings:mergeDebugJniLibFolders UP-TO-DATE
+> Task :feature-settings:mergeDebugNativeLibs NO-SOURCE
+> Task :feature-settings:copyDebugJniLibsProjectOnly UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebugAndroidTest UP-TO-DATE
+> Task :app:writeDebugAndroidTestSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebugAndroidTest
+> Task :app:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebugAndroidTest
+> Task :core-data:compileDebugAndroidTestKotlin
+> Task :core-data:compileDebugAndroidTestJavaWithJavac NO-SOURCE
+> Task :core-data:hiltAggregateDepsDebugAndroidTest UP-TO-DATE
+> Task :core-data:hiltJavaCompileDebugAndroidTest NO-SOURCE
+> Task :core-data:processDebugAndroidTestJavaRes UP-TO-DATE
+> Task :core-data:mergeDebugAndroidTestJavaResource UP-TO-DATE
+> Task :core-data:transformDebugAndroidTestClassesWithAsm
+> Task :core-data:dexBuilderDebugAndroidTest
+> Task :core-data:mergeDebugAndroidTestGlobalSynthetics UP-TO-DATE
+> Task :core-data:mergeProjectDexDebugAndroidTest
+> Task :core-data:packageDebugAndroidTest
+> Task :core-data:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :core-data:assembleDebugAndroidTest
+
+BUILD SUCCESSFUL in 1m 5s
+252 actionable tasks: 16 executed, 236 up-to-date

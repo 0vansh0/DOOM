@@ -1,0 +1,26 @@
+{
+  "formatVersion": 1,
+  "scenarios": [
+    {
+      "id": "charging-companion-smoke",
+      "event": {
+        "event": "battery.charging.started",
+        "metadata": {
+          "batteryLevel": 65,
+          "charging": true
+        }
+      },
+      "androidPermissions": [
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "expected": {
+        "conditionResult": true,
+        "actionSequence": [
+          "charging-workflow:ring",
+          "charging-workflow:message"
+        ],
+        "suppressedActions": []
+      }
+    }
+  ]
+}

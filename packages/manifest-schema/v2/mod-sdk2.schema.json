@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "definitionVersion",
+    "triggers",
+    "effects",
+    "settings"
+  ],
+  "properties": {
+    "definitionVersion": {
+      "const": 3
+    },
+    "triggers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event",
+          "effect"
+        ],
+        "properties": {
+          "event": {
+            "enum": [
+              "battery.charging.started",
+              "battery.charging.stopped",
+              "mod.manual.trigger",
+              "device.power.changed"
+            ]
+          },
+          "effect": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[a-z][a-z0-9-]{0,31}(?![\\s\\S])"
+          },
+          "condition": {
+            "enum": [
+              "always",
+              "charging",
+              "not-charging",
+              "power-saving",
+              "not-power-saving",
+              "battery-low",
+              "battery-not-low",
+              "battery-below-setting"
+            ]
+          },
+          "setting": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 24,
+            "pattern": "^[a-z][a-z0-9-]{0,23}(?![\\s\\S])"
+          }
+        }
+      }
+    },
+    "effects": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "effect"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[a-z][a-z0-9-]{0,31}(?![\\s\\S])"
+          },
+          "effect": {
+            "enum": [
+              "overlay.show",
+              "overlay.dismiss",
+              "ui.preview.show",
+              "haptics.pulse"
+            ]
+          },
+          "template": {
+            "enum": [
+              "battery-ring",
+              "floating-card"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "colorSetting",
+              "intensitySetting"
+            ],
+            "properties": {
+              "colorSetting": {
+                "const": "color"
+              },
+              "intensitySetting": {
+                "const": "intensity"
+              }
+            }
+          }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "color",
+        "intensity"
+      ],
+      "properties": {
+        "color": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "default"
+          ],
+          "properties": {
+            "type": {
+              "const": "color"
+            },
+            "default": {
+              "type": "string",
+              "minLength": 7,
+              "maxLength": 7,
+              "pattern": "^#[0-9a-fA-F]{6}(?![\\s\\S])"
+            }
+          }
+        },
+        "intensity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "min",
+            "max",
+            "default"
+          ],
+          "properties": {
+            "type": {
+              "const": "integer"
+            },
+            "min": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 60
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 60
+            },
+            "default": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 60
+            }
+          }
+        },
+        "ring": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "thicknessDp",
+            "diameterDp",
+            "durationSeconds",
+            "position"
+          ],
+          "properties": {
+            "thicknessDp": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 10
+            },
+            "diameterDp": {
+              "type": "integer",
+              "minimum": 32,
+              "maximum": 64
+            },
+            "durationSeconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            },
+            "position": {
+              "enum": [
+                "BOTTOM_START",
+                "BOTTOM_CENTER",
+                "BOTTOM_END"
+              ]
+            }
+          }
+        },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "type",
+              "min",
+              "max",
+              "default"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 24,
+                "pattern": "^[a-z][a-z0-9-]{0,23}(?![\\s\\S])"
+              },
+              "type": {
+                "const": "integer"
+              },
+              "min": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "max": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              "default": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

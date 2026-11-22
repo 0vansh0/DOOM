@@ -1,0 +1,7 @@
+name: Release candidate
+on: [workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  candidate:
+    uses: ./.github/workflows/checksums.yml

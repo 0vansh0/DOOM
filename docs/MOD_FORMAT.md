@@ -1,0 +1,19 @@
+# DOOM package format
+
+The public importer accepts manifest schema 2 with definition versions 1 and 2, plus manifest schema 3 / sdkApiVersion 2 with definition version 3. See [SDK API 2](DOOM_SDK_V2.md) for the new contract. The legacy contract below remains unchanged. The old prototype format remains a development fixture. Versions are exact integers. Unknown versions, keys, references, and registry names fail closed. Future format changes use a new version and an explicit reader. Package versions use numeric major.minor.patch with up to six digits per segment. IDs use lowercase dotted identifiers, with a letter starting each segment.
+
+The public [manifest schema](../packages/manifest-schema/v2/doom.schema.json) and [definition schema](../packages/manifest-schema/v2/mod.schema.json) are used by Android and the CLI. Use UTF-8 without a BOM, unique keys and plain integer literals. The manifest lists the package ID, name, version, description, unverified author, license identifier, minimum Android API, type, entry, icon and capabilities. The entry is `mod.json`. An empty icon denotes no icon. A named icon must match an included PNG. The license value is a single identifier such as `MIT` or `Apache-2.0`.
+
+Version 2 describes one `battery.charging.started` event targeting `charging-ring`. The effect is `overlay.show` with the `battery-ring` template. Its parameters reference the color and intensity settings by name. Color uses six-digit hex. Intensity is an integer with declared bounds inside 10â€“60 and a default inside those bounds. The trigger and effect require `battery.read` and `overlay.render`. The registry also recognizes `clock.read` and `ui.preview` as optional declarations. Installation grants no capabilities.
+
+Definition v2 adds [a separate schema](../packages/manifest-schema/v2/mod-v2.schema.json). A package can bind up to three unique events: `battery.charging.started`, `battery.charging.stopped`, and `mod.manual.trigger`. Each trigger references one declared effect. Every effect must be referenced. Its optional `condition` is `always`, `charging`, or `not-charging`. Battery events and battery conditions require `battery.read`.
+
+An effect can declare `overlay.show` with a template and settings references, `overlay.dismiss` without template or params, or `ui.preview.show` with a template and settings references. Overlay effects require `overlay.render`. Preview effects require `ui.preview`. The supported templates are `battery-ring` and `floating-card`. See the [Runtime Glow fixture](../packages/manifest-schema/fixtures/runtime-glow) for a complete example.
+
+Definition v2 optionally supports `settings.ring` for packages using `battery-ring`. It declares `thicknessDp` (2â€“10), `diameterDp` (32â€“64), `durationSeconds` (1â€“20), and `position` (`BOTTOM_START`, `BOTTOM_CENTER`, `BOTTOM_END`). Battery percentage is supplied only with an approved `battery.read` capability.
+
+## Container
+
+The canonical file is a classic single-disk ZIP with roots `doom.json` and `mod.json`. Additional entries may be `assets/<name>.png` with lowercase letters, digits, underscores and hyphens. Directory entries, ZIP64, encryption, extra fields, data descriptors, trailing data and comments are excluded. Entries use stored or raw-DEFLATE compression, exact local and central headers and CRC-32. The CLI uses stable ordering, stored entries and a fixed timestamp. It prints a SHA-256 digest of the finished package.
+
+Maximum sizes are 10 MiB compressed, 25 MiB expanded, 50 entries, 64 KiB for the manifest, 256 KiB for the definition and 5 MiB per image. PNG is restricted to non-interlaced 8-bit RGB or RGBA with one IHDR, one or more consecutive IDAT chunks, and one IEND. The reader verifies checksums and bounded scanlines. Images are limited to 2,048 pixels per side and 1,048,576 total pixels.

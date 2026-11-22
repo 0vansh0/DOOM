@@ -1,0 +1,26 @@
+{
+  "definitionVersion": 4,
+  "triggers": [{
+    "id": "preview-theme",
+    "event": "mod.manual.trigger",
+    "condition": { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true },
+    "actions": [{
+      "id": "show-ring",
+      "effect": "ui.preview.show",
+      "template": "battery-ring",
+      "parameters": {
+        "color": { "$setting": "accentColor" },
+        "ringThicknessDp": { "$setting": "thickness" },
+        "sizeDp": { "$setting": "size" },
+        "durationMs": { "$setting": "durationMs" }
+      }
+    }]
+  }],
+  "settings": {
+    "enabled": { "type": "boolean", "label": "Enable theme", "default": true },
+    "accentColor": { "type": "color", "label": "Accent color", "default": "#A78BFA" },
+    "thickness": { "type": "integer", "label": "Ring thickness", "min": 2, "max": 14, "step": 1, "default": 7 },
+    "size": { "type": "integer", "label": "Ring size", "min": 80, "max": 240, "step": 8, "default": 160 },
+    "durationMs": { "type": "duration", "label": "Animation duration", "min": 500, "max": 10000, "step": 500, "unit": "ms", "default": 3000 }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "formatVersion": 1,
+  "scenarios": [
+    {
+      "id": "low-battery-alert-smoke",
+      "event": {
+        "event": "battery.level.changed",
+        "metadata": {
+          "batteryLevel": 18,
+          "charging": false
+        }
+      },
+      "androidPermissions": [],
+      "expected": {
+        "conditionResult": true,
+        "actionSequence": [
+          "battery-low:alert"
+        ],
+        "suppressedActions": []
+      }
+    }
+  ]
+}

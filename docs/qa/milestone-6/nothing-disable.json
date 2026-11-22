@@ -1,0 +1,31 @@
+{
+  "case": "disable cleans the SDK2 preview and runtime session",
+  "passed": true,
+  "labels": [
+    "M6 Community",
+    "Back",
+    "Version 1.0.0 \u00b7 INSTALLED_DISABLED",
+    "A public SDK API 2 low-battery-card mod.",
+    "Author (unverified): Your name",
+    "License: MIT",
+    "Read battery and charging state",
+    "Read battery and charging state",
+    "Show a preview inside DOOM",
+    "Show a preview inside DOOM",
+    "Enable mod",
+    "Enable mod",
+    "Appearance",
+    "#B48CFF",
+    "Glow color",
+    "Six-digit hex color, such as #B48CFF",
+    "Glow intensity \u00b7 45%",
+    "threshold \u00b7 100 ",
+    "threshold",
+    "In-app preview",
+    "In-app preview",
+    "Home",
+    "Discover",
+    "Installed",
+    "Settings"
+  ]
+}

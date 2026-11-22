@@ -1,0 +1,3263 @@
+[
+  {
+    "name": "v4-valid-composed-multi-action",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-missing-trigger-fields",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "below",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-unknown-condition-operator",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "approx",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-condition-depth-limit",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "all",
+                "conditions": [
+                  {
+                    "op": "all",
+                    "conditions": [
+                      {
+                        "op": "all",
+                        "conditions": [
+                          {
+                            "op": "all",
+                            "conditions": [
+                              {
+                                "op": "compare",
+                                "source": "battery.level",
+                                "comparison": "below",
+                                "value": 20
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-unknown-action",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "below",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "shell.exec",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-missing-capability",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "below",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-invalid-action-parameter",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "below",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "bad key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-unknown-field",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "below",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ],
+          "script": "javascript"
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-excess-actions",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "below",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              }
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "legacy-definition-v3",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-sequential",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30000,
+            "maxConcurrency": 2,
+            "failurePolicy": "stopOnFailure",
+            "id": "charging-flow",
+            "executionMode": "sequential"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-parallel",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice",
+              "independent": true
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 25000,
+            "maxConcurrency": 2,
+            "failurePolicy": "continueOnFailure",
+            "id": "charging-flow",
+            "executionMode": "parallel"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-invalid-mode",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30000,
+            "maxConcurrency": 2,
+            "failurePolicy": "stopOnFailure",
+            "id": "charging-flow",
+            "executionMode": "unordered"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-invalid-failure-policy",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30000,
+            "maxConcurrency": 2,
+            "failurePolicy": "retryForever",
+            "id": "charging-flow",
+            "executionMode": "sequential"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-invalid-timeout",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30001,
+            "maxConcurrency": 2,
+            "failurePolicy": "stopOnFailure",
+            "id": "charging-flow",
+            "executionMode": "sequential"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-unsupported-action",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "shell.exec",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30000,
+            "maxConcurrency": 2,
+            "failurePolicy": "stopOnFailure",
+            "id": "charging-flow",
+            "executionMode": "sequential"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-dependent-continue",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "ring"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "notice"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30000,
+            "maxConcurrency": 2,
+            "failurePolicy": "continueOnFailure",
+            "id": "charging-flow",
+            "executionMode": "sequential"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-workflow-excess-actions",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-0"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-1"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-2"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-3"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-4"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-5"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-6"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-7"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-8"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-9"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-10"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-11"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-12"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-13"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-14"
+            },
+            {
+              "effect": "haptics.pulse",
+              "id": "action-15"
+            },
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": "Battery low",
+                "durationMs": 4000
+              },
+              "id": "action-16"
+            }
+          ],
+          "workflow": {
+            "timeoutMs": 30000,
+            "maxConcurrency": 2,
+            "failurePolicy": "stopOnFailure",
+            "id": "charging-flow",
+            "executionMode": "sequential"
+          }
+        }
+      ],
+      "settings": {
+        "threshold": {
+          "type": "integer",
+          "min": 5,
+          "max": 50,
+          "default": 20
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "accent": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "mode": {
+          "type": "enum",
+          "values": [
+            "quiet",
+            "normal"
+          ],
+          "default": "normal"
+        },
+        "message": {
+          "type": "text",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-settings-all-controls-and-references",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-step-zero",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-invalid-color",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#12"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-invalid-enum-default",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "top"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-text-over-limit",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-unknown-control",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low",
+          "control": "webview"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-unknown-reference",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "missing"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low"
+        }
+      }
+    }
+  },
+  {
+    "name": "v4-setting-excess-count",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview",
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 4,
+      "triggers": [
+        {
+          "id": "low-battery",
+          "event": "battery.level.changed",
+          "condition": {
+            "op": "all",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.level",
+                "comparison": "lessThan",
+                "value": 20
+              },
+              {
+                "op": "any",
+                "conditions": [
+                  {
+                    "op": "compare",
+                    "source": "battery.charging",
+                    "comparison": "equals",
+                    "value": false
+                  },
+                  {
+                    "op": "compare",
+                    "source": "event.name",
+                    "comparison": "equals",
+                    "value": "battery.level.changed"
+                  }
+                ]
+              },
+              {
+                "op": "compare",
+                "source": "setting.enabled",
+                "comparison": "equals",
+                "value": true
+              },
+              {
+                "op": "compare",
+                "source": "setting.threshold",
+                "comparison": "greaterThan",
+                "value": 5
+              }
+            ]
+          },
+          "actions": [
+            {
+              "effect": "ui.preview.show",
+              "template": "floating-card",
+              "parameters": {
+                "title": {
+                  "$setting": "message"
+                },
+                "durationMs": {
+                  "$setting": "duration"
+                },
+                "color": {
+                  "$setting": "color"
+                }
+              }
+            },
+            {
+              "effect": "haptics.pulse"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "enabled": {
+          "type": "boolean",
+          "label": "Enabled",
+          "default": true
+        },
+        "threshold": {
+          "type": "integer",
+          "label": "Battery threshold",
+          "min": 5,
+          "max": 50,
+          "step": 5,
+          "default": 20
+        },
+        "scale": {
+          "type": "number",
+          "label": "Preview scale",
+          "min": 0.5,
+          "max": 1.5,
+          "step": 0.1,
+          "default": 1
+        },
+        "duration": {
+          "type": "duration",
+          "label": "Effect duration",
+          "min": 500,
+          "max": 10000,
+          "step": 500,
+          "unit": "ms",
+          "default": 3000
+        },
+        "color": {
+          "type": "color",
+          "label": "Glow color",
+          "default": "#A78BFA"
+        },
+        "position": {
+          "type": "enum",
+          "label": "Ring position",
+          "values": [
+            "bottom-start",
+            "bottom-center",
+            "bottom-end"
+          ],
+          "default": "bottom-end"
+        },
+        "message": {
+          "type": "text",
+          "label": "Message",
+          "maxLength": 80,
+          "default": "Battery low"
+        },
+        "extra0": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra1": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra2": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra3": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra4": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra5": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra6": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra7": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra8": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra9": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra10": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra11": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra12": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra13": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra14": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra15": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra16": {
+          "type": "boolean",
+          "default": true
+        },
+        "extra17": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    }
+  }
+]

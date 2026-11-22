@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0f1115"><meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Draft privacy notice for DOOM. Owner and legal review is required before publication.">
+    <title>Privacy notice — DOOM</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"><script defer src="menu.js"></script><script defer src="site.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">D</span><span>DOOM</span></a><button class="menu-toggle" type="button" aria-controls="primary-nav" aria-expanded="false"><span class="menu-icon" aria-hidden="true"></span><span class="menu-label">Menu</span></button><nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="index.html#examples">Examples</a><a href="index.html#safety">Safety</a><a href="index.html#developers">Developers</a><a href="support.html">Support</a></nav><button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light theme">Light</button></header>
+    <main class="document-page" id="main">
+      <p class="eyebrow">DRAFT FOR OWNER AND LEGAL REVIEW</p>
+      <h1>Privacy notice</h1>
+      <p class="lede">This draft describes behavior found in the current repository. It is not an approved legal policy and must not be published as final.</p>
+      <h2>Data DOOM processes</h2>
+      <ul>
+        <li><strong>Marketplace account:</strong> registration accepts an email address, password, and display name. The backend stores a password hash, account email, developer profile, role and audit events. Login returns a short-lived bearer token; Android keeps its token in memory and requires sign-in again after process death.</li>
+        <li><strong>Feedback:</strong> a report can include category, title, description, steps, expected and actual results, app version, Android version and an optional mod identifier. The Android flow requires explicit consent. Reports are retained for 30 days by the current backend; an owner can request deletion through the implemented report deletion route. Diagnostic attachments are not automatically included.</li>
+        <li><strong>Mods and marketplace:</strong> package files and submitted metadata are validated and held in quarantine pending moderation. Approved artifacts may be served through the marketplace. Developer/reviewer account information and moderation records are processed to operate publishing controls.</li>
+        <li><strong>On-device data:</strong> installed mods, their settings, approvals and runtime/recovery state are used locally by the app. No automatic upload of installed-app inventories, private files, unique device identifiers, or diagnostic exports is part of the documented marketplace flow.</li>
+      </ul>
+      <h2>Permissions and optional services</h2>
+      <p>Android permissions are requested for specific features. Overlay access enables user-selected overlays; Modify system settings access is used only by the app’s fixed screen-timeout operation; notifications support foreground service behavior on Android versions that require notification permission; vibration supports declared haptic actions; Internet access is needed for account and marketplace features. Shizuku is optional and authorization does not grant imported mods privileged operations.</p>
+      <h2>Sharing, security and retention</h2>
+      <p>Feedback is visible to its owner and authorized reviewers. Published mod packages are visible through catalog APIs after moderation. Backend authentication uses password hashing and short-lived JWTs. Server request logging redacts authorization, password, token, and feedback report fields. No third-party advertising or analytics service is configured in the inspected app flow; this statement must be rechecked against the complete release dependency inventory before publication.</p>
+      <h2>Deletion and contact</h2>
+      <p>The current backend has report deletion, but repository inspection did not find a self-service account deletion endpoint. The accountable legal entity, privacy contact, complete account/developer-data deletion process, subprocessors, jurisdictional disclosures and final retention policy have not been supplied. These are release blockers requiring owner and legal review; no contact address is invented here.</p>
+      <p class="callout">Do not use this draft as a Play Console privacy-policy URL or Data safety declaration. The final policy must match actual production processing and be hosted on an approved public URL before any store submission.</p>
+      <a class="text-link" href="index.html">Back to DOOM</a>
+    </main>
+    <footer class="site-footer"><span>DOOM</span><small>Draft only — not approved for public use.</small></footer>
+  </body>
+</html>

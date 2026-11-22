@@ -1,0 +1,79 @@
+{
+  "definitionVersion": 4,
+  "triggers": [
+    {
+      "id": "low-battery",
+      "event": "battery.level.changed",
+      "condition": {
+        "op": "all",
+        "conditions": [
+          {
+            "op": "compare",
+            "source": "battery.level",
+            "comparison": "below",
+            "value": 20
+          },
+          {
+            "op": "any",
+            "conditions": [
+              {
+                "op": "compare",
+                "source": "battery.charging",
+                "comparison": "equals",
+                "value": false
+              },
+              {
+                "op": "compare",
+                "source": "event.name",
+                "comparison": "equals",
+                "value": "battery.level.changed"
+              }
+            ]
+          }
+        ]
+      },
+      "actions": [
+        {
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "parameters": {
+            "title": "Battery low",
+            "durationMs": 4000
+          }
+        },
+        {
+          "effect": "haptics.pulse"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "threshold": {
+      "type": "integer",
+      "min": 5,
+      "max": 50,
+      "default": 20
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true
+    },
+    "accent": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "mode": {
+      "type": "enum",
+      "values": [
+        "quiet",
+        "normal"
+      ],
+      "default": "normal"
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 80,
+      "default": "Battery low"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "scenarios": [
+    {
+      "id": "battery-glow-smoke",
+      "event": {
+        "event": "battery.charging.started",
+        "metadata": {
+          "batteryLevel": 72,
+          "charging": true
+        }
+      },
+      "androidPermissions": [
+        "SYSTEM_ALERT_WINDOW"
+      ],
+      "expected": {
+        "conditionResult": true,
+        "actionSequence": [
+          "charging-started:ring"
+        ],
+        "suppressedActions": []
+      }
+    }
+  ]
+}

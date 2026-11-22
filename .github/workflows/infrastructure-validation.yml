@@ -1,0 +1,42 @@
+name: infrastructure-validation
+on: [pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24.22.2'
+      - name: Validate local Compose configuration
+        run: docker compose -f marketplace-api/compose.yaml config --quiet
+      - name: Validate staging Compose template without deployment credentials
+        shell: bash
+        run: |
+          secret_dir="$(mktemp -d)"
+          trap 'rm -rf "$secret_dir"' EXIT
+          for name in database migration_database jwt metrics s3_access s3_secret; do : > "$secret_dir/$name"; done
+          export DOOM_MARKETPLACE_API_IMAGE='registry.example.invalid/doom/marketplace-api@sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+          export DOOM_STAGING_PORTAL_ORIGIN='https://portal.staging.example.invalid'
+          export DOOM_STAGING_S3_ENDPOINT='https://objects.staging.example.invalid'
+          export DOOM_STAGING_S3_REGION='us-east-1'
+          export DOOM_STAGING_QUARANTINE_BUCKET='doom-staging-quarantine'
+          export DOOM_STAGING_PUBLISHED_BUCKET='doom-staging-published'
+          export DOOM_STAGING_TRUSTED_PROXY_ADDRESSES='10.20.0.0/16'
+          export DOOM_STAGING_DATABASE_URL_FILE="$secret_dir/database"
+          export DOOM_STAGING_MIGRATION_DATABASE_URL_FILE="$secret_dir/migration_database"
+          export DOOM_STAGING_JWT_SECRET_FILE="$secret_dir/jwt"
+          export DOOM_STAGING_METRICS_TOKEN_FILE="$secret_dir/metrics"
+          export DOOM_STAGING_S3_ACCESS_KEY_ID_FILE="$secret_dir/s3_access"
+          export DOOM_STAGING_S3_SECRET_ACCESS_KEY_FILE="$secret_dir/s3_secret"
+          docker compose -f deployment/staging.compose.yaml config --quiet
+      - name: Build backend and verify deployment configuration rules
+        run: |
+          npm --prefix doom-cli ci
+          npm --prefix marketplace-api ci
+          npm --prefix marketplace-api run build
+          npm --prefix marketplace-api test

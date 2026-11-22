@@ -1,0 +1,40 @@
+> Task :core-data:processDebugAndroidTestJavaRes UP-TO-DATE
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+> Task :core-data:mergeDebugAndroidTestJavaResource
+> Task :core-data:mergeLibDexDebugAndroidTest
+> Task :core-data:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :core-data:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :core-data:mergeProjectDexDebugAndroidTest
+> Task :core-data:syncDebugLibJars
+> Task :core-data:bundleDebugLocalLintAar
+> Task :core-data:packageDebugAndroidTest
+> Task :core-data:createDebugAndroidTestApkListingFileRedirect UP-TO-DATE
+> Task :core-data:assembleDebugAndroidTest
+> Task :core-data:createFullJarDebug
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :core-data:generateDebugAndroidTestLintModel
+> Task :core-data:generateDebugUnitTestLintModel
+> Task :core-data:generateDebugLintReportModel
+> Task :app:lintAnalyzeDebug
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :core-data:lintAnalyzeDebugAndroidTest
+> Task :core-data:lintAnalyzeDebugUnitTest
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///E:/DOOM/app/build/reports/lint-results-debug.html
+
+> Task :app:lintDebug
+
+> Task :core-data:lintReportDebug
+Wrote HTML report to file:///E:/DOOM/core-data/build/reports/lint-results-debug.html
+
+> Task :core-data:lintDebug
+
+BUILD SUCCESSFUL in 2m 9s
+418 actionable tasks: 59 executed, 359 up-to-date

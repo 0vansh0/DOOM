@@ -1,0 +1,9 @@
+
+org.doom.app.NavigationTest:.
+org.doom.app.PersistenceTest:.
+
+Time: 11.719
+
+OK (2 tests)
+
+

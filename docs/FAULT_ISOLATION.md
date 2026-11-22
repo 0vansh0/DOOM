@@ -1,0 +1,5 @@
+# Fault isolation
+
+The runtime owns a single `WorkflowCoordinator`; its per-mod cancellation and effect-resource cleanup are reused for mod disable, permission loss, safe mode, timeout and runtime shutdown. Unexpected runtime failures, cleanup failures, timeouts and resource-limit violations qualify for fault suspension. Permission/capability denials, user cancellation and temporary adapter disconnection do not count toward quarantine.
+
+Default policy: three qualifying failures in a rolling 60-second window suspend only the affected mod. The mod's desired-enabled preference remains recorded, but `ERROR` prevents execution. There are no automatic retries. The user can explicitly retry after the fault window; a still-active window returns a clear rejection. Runtime work is bounded by the workflow engine's existing limits (16 actions, three parallel actions, two workflows per mod, 30-second timeout), bounded event channel (32, drop oldest), overlay slots and 200 persistent diagnostic rows.

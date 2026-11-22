@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "id": "community.runtimeglow",
+  "name": "Runtime Glow",
+  "version": "1.0.0",
+  "description": "Declarative charging overlay and a manual in-app preview.",
+  "author": "DOOM contributors",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "overlay.render",
+    "ui.preview"
+  ]
+}

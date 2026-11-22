@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 3,
+  "id": "community.capabilityshowcase",
+  "name": "Capability Showcase",
+  "version": "1.0.0",
+  "description": "Demonstrates individually approved in-app preview and haptics capabilities.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": ["ui.preview", "haptics.vibrate"],
+  "sdkApiVersion": 2
+}

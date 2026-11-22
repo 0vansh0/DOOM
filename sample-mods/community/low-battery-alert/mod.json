@@ -1,0 +1,23 @@
+{
+  "definitionVersion": 4,
+  "triggers": [{
+    "id": "low-battery",
+    "event": "battery.level.changed",
+    "condition": { "op": "all", "conditions": [
+      { "op": "compare", "source": "battery.level", "comparison": "lessThanOrEqual", "value": 20 },
+      { "op": "compare", "source": "battery.charging", "comparison": "equals", "value": false },
+      { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true }
+    ]},
+    "actions": [{
+      "id": "low-battery-card",
+      "effect": "ui.preview.show",
+      "template": "floating-card",
+      "parameters": { "title": "Low battery", "message": { "$setting": "message" }, "durationMs": { "$setting": "durationMs" } }
+    }]
+  }],
+  "settings": {
+    "enabled": { "type": "boolean", "label": "Enable alert", "default": true },
+    "durationMs": { "type": "duration", "label": "Card duration", "min": 1000, "max": 10000, "step": 500, "unit": "ms", "default": 4000 },
+    "message": { "type": "text", "label": "Message", "maxLength": 64, "default": "Connect your charger" }
+  }
+}

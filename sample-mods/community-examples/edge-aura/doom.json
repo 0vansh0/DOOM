@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 3,
+  "id": "community.edgeaura",
+  "name": "Edge Aura",
+  "version": "1.0.0",
+  "description": "Configurable ring appearance using DOOM public battery-ring rendering; no system-edge lighting.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "overlay.render"
+  ],
+  "sdkApiVersion": 2
+}

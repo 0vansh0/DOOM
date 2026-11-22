@@ -1,0 +1,1 @@
+{"formatVersion":1,"scenarios":[{"id":"ordered-charging-actions","androidPermissions":["SYSTEM_ALERT_WINDOW"],"event":{"event":"battery.charging.started","metadata":{"charging":true}},"expected":{"conditionResult":true,"actionSequence":["charging-started:ring","charging-started:charging-card"],"suppressedActions":[]}}]}

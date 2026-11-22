@@ -1,0 +1,29 @@
+{
+  "definitionVersion": 4,
+  "triggers": [
+    {
+      "id": "capability-showcase",
+      "event": "mod.manual.trigger",
+      "condition": { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true },
+      "actions": [{
+        "id": "preview",
+        "effect": "ui.preview.show",
+        "template": "floating-card",
+        "parameters": { "title": "Capability demo", "message": "Preview stays available when haptics are denied.", "durationMs": 3000 }
+      }]
+    },
+    {
+      "id": "optional-haptics",
+      "event": "mod.manual.trigger",
+      "condition": { "op": "all", "conditions": [
+        { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true },
+        { "op": "compare", "source": "setting.hapticsEnabled", "comparison": "equals", "value": true }
+      ]},
+      "actions": [{ "id": "optional-haptic", "effect": "haptics.pulse", "parameters": { "durationMs": 20 } }]
+    }
+  ],
+  "settings": {
+    "enabled": { "type": "boolean", "label": "Enable preview", "default": true },
+    "hapticsEnabled": { "type": "boolean", "label": "Request haptic feedback", "default": false }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "formatVersion": 1,
+  "scenarios": [
+    {
+      "id": "haptics-denied-preview-still-runs",
+      "grantedCapabilities": [
+        "ui.preview"
+      ],
+      "event": {
+        "event": "mod.manual.trigger"
+      },
+      "initialSettings": {
+        "enabled": true,
+        "hapticsEnabled": true
+      },
+      "expected": {
+        "conditionResult": true,
+        "actionSequence": [
+          "capability-showcase:preview"
+        ],
+        "suppressedActions": [
+          "optional-haptics:optional-haptic"
+        ]
+      }
+    }
+  ]
+}

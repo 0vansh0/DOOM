@@ -1,0 +1,16 @@
+name: Candidate checksums
+on:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - run: echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+      - run: bash gradlew :mod-engine:test :app:assembleRelease :app:bundleRelease -PdoomUnsignedVerification=true
+      - run: python tools/release_manifest.py >> "$GITHUB_STEP_SUMMARY"
+      - run: cd app/build/candidate && sha256sum -c SHA256SUMS

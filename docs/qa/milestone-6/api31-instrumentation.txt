@@ -1,0 +1,11 @@
+
+org.doom.data.MigrationTest:..
+org.doom.data.ModImportTest:....
+org.doom.data.ModRepositoryTest:.......
+org.doom.data.SdkDeviceTest:..
+
+Time: 6.676
+
+OK (15 tests)
+
+

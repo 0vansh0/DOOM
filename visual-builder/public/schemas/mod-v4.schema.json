@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "definitionVersion",
+    "triggers",
+    "settings"
+  ],
+  "properties": {
+    "definitionVersion": {
+      "const": 4
+    },
+    "triggers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "event",
+          "condition",
+          "actions"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32,
+            "pattern": "^[a-z][a-z0-9-]{0,31}(?![\\s\\S])"
+          },
+          "event": {
+            "enum": [
+              "battery.charging.started",
+              "battery.charging.stopped",
+              "battery.level.changed",
+              "mod.manual.trigger"
+            ]
+          },
+          "condition": {
+            "$ref": "#/$defs/condition"
+          },
+          "actions": {
+            "type": "array",
+            "minItems": 1,
+          "maxItems": 16,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "effect"
+              ],
+              "properties": {
+                "effect": {
+                  "enum": [
+                    "overlay.show",
+                    "overlay.preset.apply",
+                    "device.display.read",
+                    "overlay.dismiss",
+                    "ui.preview.show",
+                    "haptics.pulse"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 32,
+                  "pattern": "^[a-z][a-z0-9-]{0,31}(?![\\s\\S])"
+                },
+                "independent": { "type": "boolean" },
+                "template": {
+                  "enum": [
+                    "battery-ring",
+                    "floating-card"
+                  ]
+                },
+                "parameters": {
+                  "type": "object",
+                  "maxProperties": 8,
+                  "additionalProperties": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 128
+                      },
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 10000
+                      },
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["$setting"],
+                        "properties": {
+                          "$setting": { "type": "string", "minLength": 1, "maxLength": 32 }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "workflow": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "executionMode", "failurePolicy", "timeoutMs"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32,
+                "pattern": "^[a-z][a-z0-9-]{0,31}(?![\\s\\S])"
+              },
+              "executionMode": { "enum": ["sequential", "parallel"] },
+              "failurePolicy": { "enum": ["stopOnFailure", "continueOnFailure"] },
+              "timeoutMs": { "type": "integer", "minimum": 1, "maximum": 30000 },
+              "maxConcurrency": { "type": "integer", "minimum": 1, "maximum": 3 }
+            }
+          }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "maxProperties": 24,
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "default"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "boolean",
+              "integer",
+              "number",
+              "duration",
+              "color",
+              "enum",
+              "text"
+            ]
+          },
+          "default": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number",
+                "minimum": -1000000,
+                "maximum": 1000000
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              }
+            ]
+          },
+          "min": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "max": {
+            "type": "number",
+            "minimum": -1000000,
+            "maximum": 1000000
+          },
+          "step": {
+            "type": "number",
+            "minimum": 0.000001,
+            "maximum": 1000000
+          },
+          "unit": {
+            "enum": ["ms", "s", "min"]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 48
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "maxLength": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 256
+          },
+          "values": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 16,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "conditions"
+          ],
+          "properties": {
+            "op": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "conditions": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 8,
+              "items": {
+                "$ref": "#/$defs/condition"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "source",
+            "comparison",
+            "value"
+          ],
+          "properties": {
+            "op": {
+              "const": "compare"
+            },
+            "source": {
+              "oneOf": [
+                { "enum": ["battery.level", "battery.charging", "event.name"] },
+                { "type": "string", "pattern": "^setting\\.[a-zA-Z][a-zA-Z0-9]{0,31}$" }
+              ]
+            },
+            "comparison": {
+              "enum": [
+                "below",
+                "above",
+                "equals",
+                "lessThan",
+                "lessThanOrEqual",
+                "greaterThan",
+                "greaterThanOrEqual",
+                "notEquals"
+              ]
+            },
+            "value": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+--------- beginning of main
+11-19 12:28:52.576 18821 18821 I DoomExternal: overlay.show SUCCESS
+11-19 12:28:55.716 18821 18821 I DoomExternal: effect_cleanup CANCELLED
+11-19 12:28:55.721 18821 18821 I DoomExternal: Service destroyed; windows and listeners released
+11-19 12:29:04.792 18821 18821 I DoomExternal: overlay.show SUCCESS
+11-19 12:29:07.936 18821 18821 I DoomExternal: effect_cleanup CANCELLED
+11-19 12:29:07.940 18821 18821 I DoomExternal: Service destroyed; windows and listeners released
+11-19 12:29:17.104 18821 18821 I DoomExternal: overlay.show SUCCESS
+11-19 12:29:20.242 18821 18821 I DoomExternal: effect_cleanup CANCELLED
+11-19 12:29:20.246 18821 18821 I DoomExternal: Service destroyed; windows and listeners released
+11-19 12:29:29.537 18821 18821 I DoomExternal: overlay.show SUCCESS
+11-19 12:29:41.303 18821 18821 I DoomExternal: effect_cleanup CANCELLED
+11-19 12:29:41.307 18821 18821 I DoomExternal: Service destroyed; windows and listeners released

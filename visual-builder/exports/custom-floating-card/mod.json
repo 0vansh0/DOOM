@@ -1,0 +1,41 @@
+{
+  "definitionVersion": 4,
+  "triggers": [
+    {
+      "id": "manual-card",
+      "event": "mod.manual.trigger",
+      "condition": {
+        "op": "compare",
+        "source": "setting.enabled",
+        "comparison": "equals",
+        "value": true
+      },
+      "actions": [
+        {
+          "id": "card",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "parameters": {
+            "message": {
+              "$setting": "message"
+            },
+            "durationMs": 3000
+          }
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "enabled": {
+      "type": "boolean",
+      "label": "Enabled",
+      "default": true
+    },
+    "message": {
+      "type": "text",
+      "label": "Card text",
+      "maxLength": 80,
+      "default": "Hello from DOOM"
+    }
+  }
+}

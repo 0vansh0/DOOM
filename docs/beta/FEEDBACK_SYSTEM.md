@@ -1,0 +1,7 @@
+# Beta feedback
+
+Open Settings → Beta feedback. Pick a category and describe what happened. Include steps, expected and actual behavior and an optional mod ID. DOOM adds its version and Android version. Save to a location you choose. With attachments the result is a ZIP containing report.json, an optional reviewed PNG (up to 2 MiB), and optional counts derived from a DOOM diagnostic export (input up to 256 KiB). Review the screenshot for private content.
+
+To submit, sign in to the trusted developer portal, select Private feedback and choose report.json (extract it locally if necessary). Read the preview and explicitly consent. The API accepts only the report fields. Screenshots and full diagnostic files stay with the tester. Select Delete report to erase an owned submission.
+
+Run the existing database migration command before starting the updated API. POST /v1/feedback requires a bearer session, consent=true and a strict report object. Body limit is 64 KiB and the route permits ten requests per minute under the existing limiter. Identical normalized reports from the same account return the same ID. GET /v1/feedback lists that account’s reports. POST /v1/feedback/{id}/delete deletes an owned report. GET /v1/moderation/feedback and POST /v1/moderation/feedback/{id} require a reviewer or administrator. Lists accept status and offset with 25 rows per page. Reports disappear after 30 days and a running service sweeps expired rows hourly. Database backup retention is an operator responsibility. The release marketplace endpoint remains unavailable.

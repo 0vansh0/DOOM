@@ -1,0 +1,1 @@
+{"formatVersion":1,"scenarios":[{"id":"power-saving-card","event":{"event":"device.power.changed","metadata":{"device.power.saving":true}},"expected":{"conditionResult":true,"actionSequence":["device.power.changed:show"],"suppressedActions":[]}}]}

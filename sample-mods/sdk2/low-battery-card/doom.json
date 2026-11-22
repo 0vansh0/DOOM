@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 3,
+  "id": "local.lowbatterycard",
+  "name": "Low Battery Card",
+  "version": "1.0.0",
+  "description": "Public SDK API 2 example. No privileged operations.",
+  "author": "DOOM SDK example author (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "ui.preview"
+  ],
+  "sdkApiVersion": 2
+}

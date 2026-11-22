@@ -1,0 +1,12 @@
+{
+  "enable_request": {
+    "samples": 2,
+    "p50Us": 26444,
+    "p95Us": 49773
+  },
+  "manual_dispatch": {
+    "samples": 1,
+    "p50Us": 420,
+    "p95Us": 420
+  }
+}

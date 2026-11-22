@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 3,
+  "id": "community.chargingcompanion",
+  "name": "Charging Companion",
+  "version": "1.0.0",
+  "description": "A user-approved charging workflow with a ring and dismissible card.",
+  "author": "Community SDK sample author (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": ["battery.read", "overlay.render"],
+  "sdkApiVersion": 2
+}

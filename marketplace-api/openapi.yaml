@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: DOOM Marketplace API
+  version: 0.1.0
+  description: Local-first catalog and moderated declarative .doommod package publishing API.
+servers:
+  - url: http://127.0.0.1:8787
+security: []
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }
+  schemas:
+    ApiError:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties: { code: { type: string }, message: { type: string } }
+paths:
+  /health: { get: { summary: API process liveness, responses: { '200': { description: Process is alive } } } }
+  /ready: { get: { summary: Database migration and object-storage readiness, responses: { '200': { description: Dependencies ready }, '503': { description: Required dependency unavailable or readiness timeout } } } }
+  /healthz: { get: { summary: Legacy dependency-readiness alias, responses: { '200': { description: Dependencies ready }, '503': { description: Required dependency unavailable or readiness timeout } } } }
+  /v1/auth/register: { post: { summary: Create a developer account, responses: { '201': { description: Created }, '400': { description: Invalid input }, '409': { description: Email already used } } } }
+  /v1/auth/login: { post: { summary: Authenticate, responses: { '200': { description: Authenticated }, '401': { description: Invalid credentials } } } }
+  /v1/catalog/mods:
+    get:
+      summary: Browse published mods
+      parameters:
+        - { in: query, name: search, schema: { type: string, maxLength: 80 } }
+        - { in: query, name: category, schema: { type: string, maxLength: 40 } }
+        - { in: query, name: capability, schema: { type: string, maxLength: 80 } }
+        - { in: query, name: limit, schema: { type: integer, minimum: 1, maximum: 50, default: 20 } }
+      responses: { '200': { description: Published catalog page } }
+  /v1/catalog/mods/{modId}: { get: { summary: Published mod and versions, parameters: [{ in: path, name: modId, required: true, schema: { type: string } }], responses: { '200': { description: Published mod }, '404': { description: Not found } } } }
+  /v1/catalog/developers/{userId}: { get: { summary: Public developer profile, responses: { '200': { description: Profile } } } }
+  /v1/developer/profile: { patch: { summary: Update the authenticated developer profile, security: [{ bearerAuth: [] }], requestBody: { required: true, content: { application/json: { schema: { type: object, required: [displayName], properties: { displayName: { type: string, minLength: 2, maxLength: 80 }, bio: { type: string, maxLength: 500 }, website: { type: [string, 'null'], format: uri } }, additionalProperties: false } } } }, responses: { '200': { description: Updated profile }, '400': { description: Invalid profile } } } }
+  /v1/submissions:
+    post: { summary: Upload .doommod to private quarantine, security: [{ bearerAuth: [] }], requestBody: { required: true, content: { multipart/form-data: { schema: { type: object, required: [package], properties: { package: { type: string, format: binary } } } } } }, responses: { '201': { description: Uploaded and validated package }, '413': { description: Upload limit exceeded }, '422': { description: Invalid package } } }
+    get: { summary: List own submissions, security: [{ bearerAuth: [] }], responses: { '200': { description: Developer's submissions } } }
+  /v1/submissions/drafts: { post: { summary: Create a draft submission record, security: [{ bearerAuth: [] }], responses: { '201': { description: Draft created } } } }
+  /v1/submissions/{id}/draft: { patch: { summary: Edit mod ID on an owned draft before package upload, security: [{ bearerAuth: [] }], requestBody: { required: true, content: { application/json: { schema: { type: object, required: [modId], properties: { modId: { type: [string, 'null'], maxLength: 64, pattern: '^[a-z0-9]+([._-][a-z0-9]+)*$' } }, additionalProperties: false } } } }, responses: { '200': { description: Updated draft }, '400': { description: Invalid draft metadata }, '404': { description: Draft is unavailable or not editable } } } }
+  /v1/submissions/{id}/package: { post: { summary: Attach and validate a .doommod package to an owned draft, security: [{ bearerAuth: [] }], requestBody: { required: true, content: { multipart/form-data: { schema: { type: object, required: [package], properties: { package: { type: string, format: binary } }, additionalProperties: false } } } }, responses: { '200': { description: Package uploaded to private quarantine }, '409': { description: Draft is not editable or package identity conflicts }, '413': { description: Upload limit exceeded }, '422': { description: Invalid package } } } }
+  /v1/submissions/{id}: { get: { summary: Submission details, security: [{ bearerAuth: [] }], responses: { '200': { description: Submission }, '404': { description: Not found } } } }
+  /v1/moderation/audit: { get: { summary: Recent moderation and publishing audit events, security: [{ bearerAuth: [] }], parameters: [{ in: query, name: limit, schema: { type: integer, minimum: 1, maximum: 100, default: 50 } }], responses: { '200': { description: Recent audit events }, '403': { description: Reviewer or administrator required } } } }
+  /v1/submissions/{id}/validate: { post: { summary: Revalidate quarantined package and queue for review, security: [{ bearerAuth: [] }], responses: { '200': { description: Pending review }, '422': { description: Validation failed } } } }
+  /v1/submissions/{id}/publish: { post: { summary: Publish approved immutable release, security: [{ bearerAuth: [] }], responses: { '201': { description: Published }, '409': { description: Conflict } } } }
+  /v1/moderation/submissions: { get: { summary: List pending submissions, security: [{ bearerAuth: [] }], responses: { '200': { description: Pending review queue } } } }
+  /v1/moderation/submissions/{id}/decision: { post: { summary: Approve or reject, security: [{ bearerAuth: [] }], responses: { '200': { description: Decision recorded } } } }
+  /v1/moderation/submissions/{id}/package: { get: { summary: Create a short-lived private review URL, security: [{ bearerAuth: [] }], responses: { '200': { description: Reviewer-only URL }, '404': { description: Not found } } } }
+  /v1/moderation/submissions/{id}/package/download: { get: { summary: Stream a checksum-verified quarantined package to an authorized reviewer, security: [{ bearerAuth: [] }], responses: { '200': { description: Private package bytes }, '403': { description: Reviewer or administrator required }, '404': { description: Not found }, '503': { description: Storage or integrity failure } } } }
+  /v1/moderation/mods/{modId}/versions/{version}/quarantine: { post: { summary: Quarantine a published release, security: [{ bearerAuth: [] }], responses: { '200': { description: Release quarantined } } } }
+  /v1/moderation/reports/{id}/decision: { post: { summary: Resolve a user report, security: [{ bearerAuth: [] }], responses: { '200': { description: Report reviewed } } } }
+  /v1/catalog/mods/{modId}/versions/{version}/download: { get: { summary: Same-origin package URL and SHA-256 for published artifact, responses: { '200': { description: Download metadata }, '404': { description: Not published } } } }
+  /v1/catalog/mods/{modId}/versions/{version}/package: { get: { summary: Stream exact published package from same API origin, responses: { '200': { description: Binary .doommod package }, '404': { description: Not published } } } }
+  /v1/catalog/mods/{modId}/reports: { post: { summary: Submit a user report, security: [{ bearerAuth: [] }], responses: { '201': { description: Report recorded } } } }
+  /v1/moderation/reports: { get: { summary: Review open user reports, security: [{ bearerAuth: [] }], responses: { '200': { description: Open reports } } } }
+  /v1/feedback:
+    get: { summary: List private reports owned by the caller, security: [{ bearerAuth: [] }], responses: { '200': { description: Private feedback page; each row includes updatedAt } } }
+    post: { summary: Submit reviewed text with explicit consent, security: [{ bearerAuth: [] }], responses: { '201': { description: Created or existing report ID }, '400': { description: Invalid fields or missing consent } } }
+  /v1/feedback/{id}/delete: { post: { summary: Delete an owned report, security: [{ bearerAuth: [] }], responses: { '200': { description: Deleted }, '404': { description: Unavailable } } } }
+  /v1/feedback/{id}: { get: { summary: Retrieve a non-expired report owned by the caller, security: [{ bearerAuth: [] }], responses: { '200': { description: Owned report }, '404': { description: Unavailable to this account } } } }
+  /v1/moderation/feedback: { get: { summary: Reviewer feedback queue, security: [{ bearerAuth: [] }], responses: { '200': { description: Feedback page with createdAt and updatedAt }, '403': { description: Reviewer access required } } } }
+  /v1/moderation/reviewers: { get: { summary: List active reviewer accounts for assignment, security: [{ bearerAuth: [] }], responses: { '200': { description: Active reviewer and administrator IDs, emails, and roles }, '403': { description: Reviewer access required } } } }
+  /v1/moderation/feedback/{id}:
+    get: { summary: Retrieve a non-expired report for reviewer triage, security: [{ bearerAuth: [] }], responses: { '200': { description: Full report and triage state }, '403': { description: Reviewer access required }, '404': { description: Unavailable } } }
+    post: { summary: Save reviewer triage, optional active reviewer assignment, and append a sanitized audit event, security: [{ bearerAuth: [] }], responses: { '200': { description: Updated report including updatedAt and assigneeId }, '400': { description: Invalid fields or reviewer assignment }, '403': { description: Reviewer access required }, '409': { description: Invalid status transition } } }

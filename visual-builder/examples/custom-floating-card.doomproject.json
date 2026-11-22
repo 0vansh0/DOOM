@@ -1,0 +1,64 @@
+{
+  "projectFormatVersion": 1,
+  "id": "template-custom-floating-card",
+  "title": "Custom Floating Card Workflow",
+  "manifest": {
+    "schemaVersion": 3,
+    "id": "local.customfloatingcardworkflow",
+    "name": "Custom Floating Card Workflow",
+    "version": "1.0.0",
+    "description": "A declarative DOOM mod built with the Visual Mod Builder.",
+    "author": "Local developer",
+    "license": "MIT",
+    "minAndroidApi": 31,
+    "modType": "declarative",
+    "entry": "mod.json",
+    "icon": "",
+    "capabilities": [
+      "ui.preview"
+    ],
+    "sdkApiVersion": 2
+  },
+  "definition": {
+    "definitionVersion": 4,
+    "triggers": [
+      {
+        "id": "manual-card",
+        "event": "mod.manual.trigger",
+        "condition": {
+          "op": "compare",
+          "source": "setting.enabled",
+          "comparison": "equals",
+          "value": true
+        },
+        "actions": [
+          {
+            "id": "card",
+            "effect": "ui.preview.show",
+            "template": "floating-card",
+            "parameters": {
+              "message": {
+                "$setting": "message"
+              },
+              "durationMs": 3000
+            }
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "enabled": {
+        "type": "boolean",
+        "label": "Enabled",
+        "default": true
+      },
+      "message": {
+        "type": "text",
+        "label": "Card text",
+        "maxLength": 80,
+        "default": "Hello from DOOM"
+      }
+    }
+  },
+  "positions": {}
+}

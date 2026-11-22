@@ -1,0 +1,10 @@
+# DOOM declarative SDK, Definition Version 4
+
+V4 packages continue to use manifest schema 3 and SDK API 2. Definition 3 remains on its original parser and execution path. Definition 4 adds named triggers, typed events, composed `all`/`any` conditions, bounded action arrays, and typed settings metadata. See `DEFINITION_V4.md` for the JSON contract and compatibility matrix.
+
+Trusted public events are battery charging started/stopped, battery level changed, and the in-app manual trigger. Actions remain the host allowlist: overlay show/dismiss, DOOM in-app preview, bounded haptic pulse, `overlay.preset.apply`, and parameterless `device.display.read`. Imported packages cannot register code or extend these registries. The canonical machine-readable capability/action catalog is `packages/manifest-schema/v2/registry.json` (registry version 2); SDK API 2 and manifest schema 3 remain unchanged. `app.launch.approved` is catalogued but currently marked unimplemented, so packages cannot execute it.
+
+V4 trigger dispatch and condition evaluation are active in the foreground runtime. A trigger without `workflow` preserves the established first-action behavior. An explicit workflow opts into bounded multiple-action execution with sequential or parallel mode, stop/continue failure handling, timeout, cancellation, and resource ownership. See `WORKFLOW_ENGINE.md`. Typed settings are rendered from allowlisted schemas, persisted in Room and resolved in conditions/action parameters from trusted runtime snapshots. See `DYNAMIC_MOD_SETTINGS.md`.
+# Capability compatibility
+
+Capability requirements use the shipped trusted registry. At runtime each requirement is checked against Android/device availability, any Android authorization, trusted executor availability and the user's per-mod DOOM approval. See [Capability Manager](CAPABILITY_MANAGER.md) and [Device Compatibility](DEVICE_COMPATIBILITY.md). Definition V3 and V4 semantics are unchanged; unsupported requirements are blocked rather than silently ignored.

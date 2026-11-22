@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 3,
+  "id": "local.batteryglowcustomization",
+  "name": "Battery Glow Customization",
+  "version": "1.0.0",
+  "description": "A declarative DOOM mod built with the Visual Mod Builder.",
+  "author": "Local developer",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "overlay.render"
+  ],
+  "sdkApiVersion": 2
+}

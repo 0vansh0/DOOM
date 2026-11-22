@@ -1,0 +1,3 @@
+# Update Compatibility
+
+Record the installed version and signer before testing. Verify that both APKs have the same application ID and signer and that the candidate code increases. Use adb install -r only. A mismatch stops the test. Use an isolated disposable installation for Play and direct-release testing. Compare mod IDs, settings, safe mode, recovery records, account state and Shizuku access before and after restart. Use the previous good source with a higher code and compatible schema for corrective releases. Preserve recovery journals and avoid uninstall or downgrade as a recovery procedure.

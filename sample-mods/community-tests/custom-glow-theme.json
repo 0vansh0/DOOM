@@ -1,0 +1,20 @@
+{
+  "formatVersion": 1,
+  "scenarios": [{
+    "id": "manual-preview-uses-default-settings",
+    "event": { "event": "mod.manual.trigger" },
+    "expected": {
+      "conditionResult": true,
+      "actionSequence": ["preview-theme:show-ring"],
+      "suppressedActions": [],
+      "resolvedParameters": {
+        "preview-theme:show-ring": {
+          "color": "#A78BFA",
+          "ringThicknessDp": 7,
+          "sizeDp": 160,
+          "durationMs": 3000
+        }
+      }
+    }
+  }]
+}

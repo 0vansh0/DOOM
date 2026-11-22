@@ -1,0 +1,54 @@
+[
+  {
+    "test": "Real USB charging activation transfers its configured glow outside the Activity",
+    "result": "PASS"
+  },
+  {
+    "test": "Charging handoff expires without relaunching from the background",
+    "result": "PASS"
+  },
+  {
+    "test": "External overlay visible over DOOM",
+    "result": "PASS"
+  },
+  {
+    "test": "Temporary overlay survives Home",
+    "result": "PASS"
+  },
+  {
+    "test": "Temporary overlay is above Calculator",
+    "result": "PASS"
+  },
+  {
+    "test": "Temporary deadline removes window and service",
+    "result": "PASS"
+  },
+  {
+    "test": "Persistent mode survives Home beyond temporary deadline",
+    "result": "PASS"
+  },
+  {
+    "test": "Explicit Stop removes persistent window without a duplicate foreground window",
+    "result": "PASS"
+  },
+  {
+    "test": "Disable Mod removes service overlay",
+    "result": "PASS"
+  },
+  {
+    "test": "Safe Mode removes service overlay",
+    "result": "PASS"
+  },
+  {
+    "test": "Android permission revocation removes service overlay",
+    "result": "PASS"
+  },
+  {
+    "test": "Three final-APK persistent start-stop cycles leave zero duplicate or leaked windows",
+    "result": "PASS"
+  },
+  {
+    "test": "Final cleanup removes the service and every DOOM overlay window",
+    "result": "PASS"
+  }
+]

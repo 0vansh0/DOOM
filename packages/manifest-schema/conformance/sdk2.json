@@ -1,0 +1,1140 @@
+[
+  {
+    "name": "power-card",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "focus-pulse",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.focuspulse",
+      "name": "Focus Pulse",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "always",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "haptics.pulse"
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "low-battery-card",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.lowbatterycard",
+      "name": "Low Battery Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "battery-low",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-sdk",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 9
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-manifest",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 99,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "mixed-sdk-definition",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 2,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-condition",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "shell-enabled",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "missing-power-capability",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-capability",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "ui.preview",
+        "root.exec"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-event",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "clock.tick",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-action",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "shell.execute",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "invalid-setting-type",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "script",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "invalid-setting-range",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 60,
+          "max": 10,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "unknown-setting",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.powercard",
+      "name": "Power Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "device.power.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "device.power.changed",
+          "condition": "power-saving",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        },
+        "script": {
+          "type": "javascript",
+          "default": "x"
+        }
+      }
+    }
+  },
+  {
+    "name": "haptic-template-forbidden",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.focuspulse",
+      "name": "Focus Pulse",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "haptics.vibrate"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "always",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "haptics.pulse",
+          "template": "battery-ring"
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "condition-needs-battery",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.lowbatterycard",
+      "name": "Low Battery Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "battery-low",
+          "effect": "show"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        }
+      }
+    }
+  },
+  {
+    "name": "configurable-threshold",
+    "valid": true,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.lowbatterycard",
+      "name": "Low Battery Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "battery-below-setting",
+          "effect": "show",
+          "setting": "threshold"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        },
+        "options": [
+          {
+            "id": "threshold",
+            "type": "integer",
+            "min": 1,
+            "max": 100,
+            "default": 25
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "unresolved-setting",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.lowbatterycard",
+      "name": "Low Battery Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "battery-below-setting",
+          "effect": "show",
+          "setting": "absent"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        },
+        "options": [
+          {
+            "id": "threshold",
+            "type": "integer",
+            "min": 1,
+            "max": 100,
+            "default": 25
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "duplicate-options",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.lowbatterycard",
+      "name": "Low Battery Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "battery-below-setting",
+          "effect": "show",
+          "setting": "threshold"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        },
+        "options": [
+          {
+            "id": "threshold",
+            "type": "integer",
+            "min": 1,
+            "max": 100,
+            "default": 25
+          },
+          {
+            "id": "threshold",
+            "type": "integer",
+            "min": 1,
+            "max": 100,
+            "default": 25
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "option-default-outside-range",
+    "valid": false,
+    "manifest": {
+      "schemaVersion": 3,
+      "id": "local.lowbatterycard",
+      "name": "Low Battery Card",
+      "version": "1.0.0",
+      "description": "Public SDK API 2 example. No privileged operations.",
+      "author": "DOOM SDK example author (unverified)",
+      "license": "MIT",
+      "minAndroidApi": 31,
+      "modType": "declarative",
+      "entry": "mod.json",
+      "icon": "",
+      "capabilities": [
+        "battery.read",
+        "ui.preview"
+      ],
+      "sdkApiVersion": 2
+    },
+    "definition": {
+      "definitionVersion": 3,
+      "triggers": [
+        {
+          "event": "mod.manual.trigger",
+          "condition": "battery-below-setting",
+          "effect": "show",
+          "setting": "threshold"
+        }
+      ],
+      "effects": [
+        {
+          "id": "show",
+          "effect": "ui.preview.show",
+          "template": "floating-card",
+          "params": {
+            "colorSetting": "color",
+            "intensitySetting": "intensity"
+          }
+        }
+      ],
+      "settings": {
+        "color": {
+          "type": "color",
+          "default": "#B48CFF"
+        },
+        "intensity": {
+          "type": "integer",
+          "min": 10,
+          "max": 60,
+          "default": 45
+        },
+        "options": [
+          {
+            "id": "threshold",
+            "type": "integer",
+            "min": 1,
+            "max": 100,
+            "default": 0
+          }
+        ]
+      }
+    }
+  }
+]

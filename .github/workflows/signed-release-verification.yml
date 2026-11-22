@@ -1,0 +1,79 @@
+name: Signed release verification
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    # Configure this environment in repository settings with required reviewers,
+    # protected environment secrets, and main-only deployment branches.
+    environment: approved-release
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Configure Java 17
+        run: echo "JAVA_HOME=$JAVA_HOME_17_X64" >> "$GITHUB_ENV"
+      - name: Materialize approved keystore in runner temp
+        env:
+          KEYSTORE_BASE64: ${{ secrets.DOOM_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$KEYSTORE_BASE64"
+          key="$RUNNER_TEMP/doom-release-keystore.jks"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$key"
+          chmod 600 "$key"
+          echo "DOOM_KEYSTORE=$key" >> "$GITHUB_ENV"
+      - name: Run tests and build signed APK and AAB
+        env:
+          DOOM_STORE_PASSWORD: ${{ secrets.DOOM_STORE_PASSWORD }}
+          DOOM_KEY_ALIAS: ${{ secrets.DOOM_KEY_ALIAS }}
+          DOOM_KEY_PASSWORD: ${{ secrets.DOOM_KEY_PASSWORD }}
+          DOOM_APPROVED_SIGNER_SHA256: ${{ secrets.DOOM_APPROVED_SIGNER_SHA256 }}
+          DOOM_MARKETPLACE_PRODUCTION_BASE_URL: ${{ secrets.DOOM_MARKETPLACE_PRODUCTION_BASE_URL }}
+        run: |
+          set -euo pipefail
+          test -n "$DOOM_STORE_PASSWORD"
+          test -n "$DOOM_KEY_ALIAS"
+          test -n "$DOOM_KEY_PASSWORD"
+          test -n "$DOOM_APPROVED_SIGNER_SHA256"
+          test -n "$DOOM_MARKETPLACE_PRODUCTION_BASE_URL"
+          ./gradlew :mod-engine:test :app:testDebugUnitTest :app:assembleRelease :app:bundleRelease \
+            -PdoomApprovedSignerSha256="$DOOM_APPROVED_SIGNER_SHA256" --no-daemon --max-workers=2
+      - name: Verify signed artifact identity and checksums
+        env:
+          DOOM_APPROVED_SIGNER_SHA256: ${{ secrets.DOOM_APPROVED_SIGNER_SHA256 }}
+        run: |
+          set -euo pipefail
+          apk=app/build/outputs/apk/release/app-release.apk
+          aab=app/build/outputs/bundle/release/app-release.aab
+          test -s "$apk" && test -s "$aab"
+          tools="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n1)"
+          test -x "$tools/apksigner" && test -x "$tools/aapt"
+          expected="$(printf '%s' "$DOOM_APPROVED_SIGNER_SHA256" | tr -d ':' | tr 'A-F' 'a-f')"
+          apk_signer="$("$tools/apksigner" verify --print-certs "$apk" | sed -n 's/.*certificate SHA-256 digest: //p' | head -n1 | tr -d ':' | tr 'A-F' 'a-f')"
+          test "$apk_signer" = "$expected"
+          jarsigner -verify -verbose "$aab" >/dev/null
+          aab_signer="$(keytool -J-Duser.language=en -printcert -jarfile "$aab" | sed -n 's/^[[:space:]]*SHA256: //p' | head -n1 | tr -d ':' | tr 'A-F' 'a-f')"
+          test "$aab_signer" = "$expected"
+          badging="$("$tools/aapt" dump badging "$apk")"
+          printf '%s\n' "$badging" | grep -q "package: name='org.doom.app'"
+          metadata=app/build/outputs/apk/release/output-metadata.json
+          test -s "$metadata"
+          sha256sum "$apk" "$aab" > "$RUNNER_TEMP/doom-release-SHA256SUMS"
+          {
+            echo '### Signed release verification (not distributed)'
+            echo "Source revision: $GITHUB_SHA"
+            echo "APK: $apk"
+            echo "AAB: $aab"
+            echo "Application ID: org.doom.app"
+            echo "Signer SHA-256: $apk_signer"
+            echo 'APK/AAB checksums:'
+            cat "$RUNNER_TEMP/doom-release-SHA256SUMS"
+            echo 'Artifact files are not uploaded or published by this workflow.'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Remove temporary signing key
+        if: always()
+        run: rm -f -- "$RUNNER_TEMP/doom-release-keystore.jks"

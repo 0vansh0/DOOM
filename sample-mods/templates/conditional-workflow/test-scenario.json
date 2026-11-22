@@ -1,0 +1,1 @@
+{"formatVersion":1,"scenarios":[{"id":"composed-low-battery-condition","event":{"event":"battery.level.changed","metadata":{"batteryLevel":15,"charging":false}},"expected":{"conditionResult":true,"actionSequence":["low-battery:low-battery-card"],"suppressedActions":[]}}]}

@@ -1,0 +1,1 @@
+{"formatVersion":1,"scenarios":[{"id":"below-configured-threshold","event":{"event":"mod.manual.trigger","metadata":{"batteryLevel":20}},"expected":{"conditionResult":true,"actionSequence":["mod.manual.trigger:show"],"suppressedActions":[]}}]}

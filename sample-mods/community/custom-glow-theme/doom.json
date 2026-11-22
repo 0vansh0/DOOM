@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 3,
+  "id": "community.customglowtheme",
+  "name": "Custom Glow Theme",
+  "version": "1.0.0",
+  "description": "A configurable battery ring using the public battery-ring renderer.",
+  "author": "Community SDK sample author (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": ["ui.preview"],
+  "sdkApiVersion": 2
+}

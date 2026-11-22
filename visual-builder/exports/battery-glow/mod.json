@@ -1,0 +1,73 @@
+{
+  "definitionVersion": 4,
+  "triggers": [
+    {
+      "id": "charging-started",
+      "event": "battery.charging.started",
+      "condition": {
+        "op": "compare",
+        "source": "battery.charging",
+        "comparison": "equals",
+        "value": true
+      },
+      "actions": [
+        {
+          "id": "ring",
+          "effect": "overlay.show",
+          "template": "battery-ring",
+          "parameters": {
+            "color": {
+              "$setting": "accentColor"
+            },
+            "intensity": {
+              "$setting": "intensity"
+            },
+            "ringThicknessDp": {
+              "$setting": "thickness"
+            },
+            "durationMs": {
+              "$setting": "durationMs"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "enabled": {
+      "type": "boolean",
+      "label": "Enabled",
+      "default": true
+    },
+    "accentColor": {
+      "type": "color",
+      "label": "Accent color",
+      "default": "#A78BFA"
+    },
+    "intensity": {
+      "type": "integer",
+      "label": "Intensity",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 40
+    },
+    "thickness": {
+      "type": "integer",
+      "label": "Ring thickness",
+      "min": 2,
+      "max": 14,
+      "step": 1,
+      "default": 7
+    },
+    "durationMs": {
+      "type": "duration",
+      "label": "Effect duration",
+      "min": 500,
+      "max": 10000,
+      "step": 500,
+      "unit": "ms",
+      "default": 3000
+    }
+  }
+}

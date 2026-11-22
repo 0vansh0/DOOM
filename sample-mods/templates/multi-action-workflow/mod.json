@@ -1,0 +1,97 @@
+{
+  "definitionVersion": 4,
+  "triggers": [
+    {
+      "id": "charging-started",
+      "event": "battery.charging.started",
+      "condition": {
+        "op": "all",
+        "conditions": [
+          { "op": "compare", "source": "battery.charging", "comparison": "equals", "value": true },
+          { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true }
+        ]
+      },
+      "workflow": {
+        "id": "charging-sequence",
+        "executionMode": "sequential",
+        "failurePolicy": "stopOnFailure",
+        "timeoutMs": 15000,
+        "maxConcurrency": 2
+      },
+      "actions": [
+        {
+          "id": "ring",
+          "effect": "overlay.show",
+          "template": "battery-ring",
+          "parameters": {
+            "durationMs": { "$setting": "durationMs" },
+            "color": { "$setting": "accentColor" },
+            "intensity": { "$setting": "intensity" },
+            "ringThicknessDp": { "$setting": "ringThickness" },
+            "position": { "$setting": "position" }
+          }
+        },
+        {
+          "id": "charging-card",
+          "effect": "overlay.show",
+          "template": "floating-card",
+          "parameters": {
+            "message": { "$setting": "message" },
+            "durationMs": { "$setting": "durationMs" }
+          }
+        }
+      ]
+    },
+    {
+      "id": "manual-test",
+      "event": "mod.manual.trigger",
+      "condition": {
+        "op": "all",
+        "conditions": [
+          { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true },
+          { "op": "compare", "source": "setting.scale", "comparison": "greaterThan", "value": 0.5 }
+        ]
+      },
+      "workflow": {
+        "id": "manual-sequence",
+        "executionMode": "sequential",
+        "failurePolicy": "stopOnFailure",
+        "timeoutMs": 15000,
+        "maxConcurrency": 2
+      },
+      "actions": [
+        {
+          "id": "preview-ring",
+          "effect": "overlay.show",
+          "template": "battery-ring",
+          "parameters": {
+            "durationMs": { "$setting": "durationMs" },
+            "color": { "$setting": "accentColor" },
+            "intensity": { "$setting": "intensity" },
+            "ringThicknessDp": { "$setting": "ringThickness" },
+            "position": { "$setting": "position" }
+          }
+        },
+        {
+          "id": "preview-card",
+          "effect": "overlay.show",
+          "template": "floating-card",
+          "parameters": {
+            "message": { "$setting": "message" },
+            "durationMs": { "$setting": "durationMs" }
+          }
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "enabled": { "type": "boolean", "label": "Enable charging workflow", "default": true },
+    "accentColor": { "type": "color", "label": "Glow color", "default": "#A78BFA" },
+    "intensity": { "type": "integer", "label": "Glow intensity", "min": 10, "max": 60, "step": 5, "default": 40 },
+    "ringThickness": { "type": "integer", "label": "Ring thickness", "min": 2, "max": 12, "step": 1, "default": 7 },
+    "durationMs": { "type": "duration", "label": "Effect duration", "min": 500, "max": 10000, "step": 500, "unit": "ms", "default": 3000 },
+    "position": { "type": "enum", "label": "Ring position", "values": ["bottom-start", "bottom-center", "bottom-end"], "default": "bottom-end" },
+    "message": { "type": "text", "label": "Floating message", "maxLength": 80, "default": "Charging started" },
+    "scale": { "type": "number", "label": "Preview scale", "min": 0.5, "max": 1.5, "step": 0.1, "default": 1.0 }
+  }
+}

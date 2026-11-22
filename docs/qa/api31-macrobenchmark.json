@@ -1,0 +1,89 @@
+{
+    "context": {
+        "build": {
+            "brand": "Android",
+            "device": "emulator64_x86_64",
+            "fingerprint": "Android/sdk_phone64_x86_64/emulator64_x86_64:12/SE1A.220826.006.A1/10064458:userdebug/test-keys",
+            "id": "SE1A.220826.006.A1",
+            "model": "Android SDK built for x86_64",
+            "type": "userdebug",
+            "version": {
+                "codename": "REL",
+                "sdk": 31
+            }
+        },
+        "cpuCoreCount": 4,
+        "cpuLocked": true,
+        "cpuMaxFreqHz": 2000,
+        "memTotalBytes": 2063589376,
+        "sustainedPerformanceModeEnabled": false,
+        "artMainlineVersion": 319999900,
+        "osCodenameAbbreviated": "S",
+        "compilationMode": "run-from-apk"
+    },
+    "benchmarks": [
+        {
+            "name": "coldStartup",
+            "params": {},
+            "className": "org.doom.benchmark.DoomBenchmark",
+            "totalRunTimeNs": 22844017000,
+            "metrics": {
+                "timeToInitialDisplayMs": {
+                    "minimum": 702.1165,
+                    "maximum": 1032.2454,
+                    "median": 751.5757,
+                    "runs": [
+                        906.1995,
+                        751.5757,
+                        1032.2454,
+                        727.2451,
+                        745.4886,
+                        702.1165,
+                        877.1764
+                    ]
+                }
+            },
+            "sampledMetrics": {},
+            "warmupIterations": 0,
+            "repeatIterations": 7,
+            "thermalThrottleSleepSeconds": 0,
+            "profilerOutputs": [
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 0",
+                    "filename": "DoomBenchmark_coldStartup_iter000_2026-11-18-16-59-28.perfetto-trace"
+                },
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 1",
+                    "filename": "DoomBenchmark_coldStartup_iter001_2026-11-18-16-59-30.perfetto-trace"
+                },
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 2",
+                    "filename": "DoomBenchmark_coldStartup_iter002_2026-11-18-16-59-33.perfetto-trace"
+                },
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 3",
+                    "filename": "DoomBenchmark_coldStartup_iter003_2026-11-18-16-59-36.perfetto-trace"
+                },
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 4",
+                    "filename": "DoomBenchmark_coldStartup_iter004_2026-11-18-16-59-39.perfetto-trace"
+                },
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 5",
+                    "filename": "DoomBenchmark_coldStartup_iter005_2026-11-18-16-59-41.perfetto-trace"
+                },
+                {
+                    "type": "PerfettoTrace",
+                    "label": "Trace Iteration 6",
+                    "filename": "DoomBenchmark_coldStartup_iter006_2026-11-18-16-59-44.perfetto-trace"
+                }
+            ]
+        }
+    ]
+}

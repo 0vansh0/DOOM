@@ -1,0 +1,59 @@
+{
+  "definitionVersion": 2,
+  "triggers": [
+    {
+      "event": "battery.charging.started",
+      "effect": "charge"
+    },
+    {
+      "event": "battery.charging.stopped",
+      "effect": "clear"
+    },
+    {
+      "event": "mod.manual.trigger",
+      "effect": "preview"
+    }
+  ],
+  "effects": [
+    {
+      "id": "charge",
+      "effect": "overlay.show",
+      "template": "battery-ring",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    },
+    {
+      "id": "clear",
+      "effect": "overlay.dismiss"
+    },
+    {
+      "id": "preview",
+      "effect": "ui.preview.show",
+      "template": "battery-ring",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 50
+    },
+    "ring": {
+      "thicknessDp": 7,
+      "diameterDp": 58,
+      "durationSeconds": 3,
+      "position": "BOTTOM_END"
+    }
+  }
+}

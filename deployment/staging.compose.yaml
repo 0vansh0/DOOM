@@ -1,0 +1,103 @@
+name: doom-marketplace-staging
+
+services:
+  api:
+    image: ${DOOM_MARKETPLACE_API_IMAGE:?Set an immutable, reviewed API image reference}
+    init: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    ports:
+      - 127.0.0.1:8788:8787
+    environment: &staging-environment
+      APP_ENVIRONMENT: staging
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 8787
+      LOG_LEVEL: info
+      DATABASE_URL_FILE: /run/secrets/database_url
+      DATABASE_SSL_MODE: verify-full
+      DB_POOL_SIZE: 8
+      TRUSTED_PROXY_ADDRESSES: ${DOOM_STAGING_TRUSTED_PROXY_ADDRESSES:?Set the exact proxy IP or CIDR list}
+      JWT_SECRET_FILE: /run/secrets/jwt_secret
+      METRICS_TOKEN_FILE: /run/secrets/metrics_token
+      ACCESS_TOKEN_TTL_SECONDS: 900
+      ALLOWED_ORIGINS: ${DOOM_STAGING_PORTAL_ORIGIN:?Set the exact HTTPS staging portal origin}
+      S3_ENDPOINT: ${DOOM_STAGING_S3_ENDPOINT:?Set the dedicated HTTPS staging S3 endpoint}
+      S3_REGION: ${DOOM_STAGING_S3_REGION:?Set the staging S3 region}
+      S3_ACCESS_KEY_ID_FILE: /run/secrets/s3_access_key_id
+      S3_SECRET_ACCESS_KEY_FILE: /run/secrets/s3_secret_access_key
+      S3_FORCE_PATH_STYLE: ${DOOM_STAGING_S3_FORCE_PATH_STYLE:-false}
+      S3_QUARANTINE_BUCKET: ${DOOM_STAGING_QUARANTINE_BUCKET:?Set a staging-only quarantine bucket}
+      S3_PUBLISHED_BUCKET: ${DOOM_STAGING_PUBLISHED_BUCKET:?Set a staging-only published bucket}
+      RATE_LIMIT_MAX: 120
+      RATE_LIMIT_WINDOW_MS: 60000
+      AUTH_REGISTER_RATE_LIMIT: 5
+      AUTH_LOGIN_RATE_LIMIT: 10
+      FEEDBACK_RATE_LIMIT_MAX: 10
+      UPLOAD_MAX_BYTES: 10485760
+      UPLOADS_PER_DAY: 20
+      UPLOAD_BYTES_PER_DAY: 104857600
+      VALIDATOR_CONCURRENCY: 2
+      WORKER_TIMEOUT_MS: 15000
+    secrets:
+      - database_url
+      - jwt_secret
+      - metrics_token
+      - s3_access_key_id
+      - s3_secret_access_key
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:8787/ready').then(r=>process.exit(r.status===200?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 768M
+    networks: [doom-staging]
+
+  migrate:
+    image: ${DOOM_MARKETPLACE_API_IMAGE:?Set an immutable, reviewed API image reference}
+    profiles: [migration]
+    entrypoint: [node, dist/db/migrate.js, --apply]
+    restart: 'no'
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      <<: *staging-environment
+      DATABASE_URL_FILE: /run/secrets/migration_database_url
+      DOOM_MIGRATIONS_APPROVED: ${DOOM_STAGING_MIGRATIONS_APPROVED:-false}
+    secrets:
+      - migration_database_url
+      - jwt_secret
+      - metrics_token
+      - s3_access_key_id
+      - s3_secret_access_key
+    networks: [doom-staging]
+
+networks:
+  doom-staging:
+    internal: false
+
+secrets:
+  database_url:
+    file: ${DOOM_STAGING_DATABASE_URL_FILE:?Set the protected staging PostgreSQL URL secret file}
+  migration_database_url:
+    file: ${DOOM_STAGING_MIGRATION_DATABASE_URL_FILE:?Set the separate staging migration-role database URL secret file}
+  jwt_secret:
+    file: ${DOOM_STAGING_JWT_SECRET_FILE:?Set the protected staging JWT secret file}
+  metrics_token:
+    file: ${DOOM_STAGING_METRICS_TOKEN_FILE:?Set the protected metrics bearer token file}
+  s3_access_key_id:
+    file: ${DOOM_STAGING_S3_ACCESS_KEY_ID_FILE:?Set the staging S3 access key secret file}
+  s3_secret_access_key:
+    file: ${DOOM_STAGING_S3_SECRET_ACCESS_KEY_FILE:?Set the staging S3 secret key file}

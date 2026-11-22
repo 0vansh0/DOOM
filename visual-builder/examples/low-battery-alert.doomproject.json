@@ -1,0 +1,93 @@
+{
+  "projectFormatVersion": 1,
+  "id": "template-low-battery-alert",
+  "title": "Low Battery Alert",
+  "manifest": {
+    "schemaVersion": 3,
+    "id": "local.lowbatteryalert",
+    "name": "Low Battery Alert",
+    "version": "1.0.0",
+    "description": "A declarative DOOM mod built with the Visual Mod Builder.",
+    "author": "Local developer",
+    "license": "MIT",
+    "minAndroidApi": 31,
+    "modType": "declarative",
+    "entry": "mod.json",
+    "icon": "",
+    "capabilities": [
+      "battery.read",
+      "ui.preview"
+    ],
+    "sdkApiVersion": 2
+  },
+  "definition": {
+    "definitionVersion": 4,
+    "triggers": [
+      {
+        "id": "battery-low",
+        "event": "battery.level.changed",
+        "condition": {
+          "op": "all",
+          "conditions": [
+            {
+              "op": "compare",
+              "source": "battery.level",
+              "comparison": "lessThanOrEqual",
+              "value": 20
+            },
+            {
+              "op": "compare",
+              "source": "battery.charging",
+              "comparison": "equals",
+              "value": false
+            },
+            {
+              "op": "compare",
+              "source": "setting.enabled",
+              "comparison": "equals",
+              "value": true
+            }
+          ]
+        },
+        "actions": [
+          {
+            "id": "alert",
+            "effect": "ui.preview.show",
+            "template": "floating-card",
+            "parameters": {
+              "message": {
+                "$setting": "message"
+              },
+              "durationMs": {
+                "$setting": "durationMs"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "settings": {
+      "enabled": {
+        "type": "boolean",
+        "label": "Enabled",
+        "default": true
+      },
+      "durationMs": {
+        "type": "duration",
+        "label": "Duration",
+        "min": 1000,
+        "max": 10000,
+        "step": 500,
+        "unit": "ms",
+        "default": 4000
+      },
+      "message": {
+        "type": "text",
+        "label": "Alert message",
+        "maxLength": 64,
+        "default": "Connect your charger"
+      }
+    }
+  },
+  "positions": {}
+}

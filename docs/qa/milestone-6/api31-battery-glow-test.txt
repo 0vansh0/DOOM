@@ -1,0 +1,8 @@
+
+org.doom.app.BatteryGlowTest:.
+
+Time: 15.648
+
+OK (1 test)
+
+

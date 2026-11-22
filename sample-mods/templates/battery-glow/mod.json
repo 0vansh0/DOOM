@@ -1,0 +1,32 @@
+{
+  "definitionVersion": 1,
+  "triggers": [
+    {
+      "event": "battery.charging.started",
+      "effect": "charging-ring"
+    }
+  ],
+  "effects": [
+    {
+      "id": "charging-ring",
+      "effect": "overlay.show",
+      "template": "battery-ring",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 45
+    }
+  }
+}

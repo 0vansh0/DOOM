@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "id": "community.batteryglow",
+  "name": "Battery Glow",
+  "version": "1.0.0",
+  "description": "Animated charging ring with battery percentage and adjustable appearance.",
+  "author": "DOOM contributors",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "overlay.render",
+    "ui.preview"
+  ]
+}

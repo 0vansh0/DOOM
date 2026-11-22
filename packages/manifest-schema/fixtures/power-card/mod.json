@@ -1,0 +1,33 @@
+{
+  "definitionVersion": 3,
+  "triggers": [
+    {
+      "event": "device.power.changed",
+      "condition": "power-saving",
+      "effect": "show"
+    }
+  ],
+  "effects": [
+    {
+      "id": "show",
+      "effect": "ui.preview.show",
+      "template": "floating-card",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 45
+    }
+  }
+}

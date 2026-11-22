@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 3,
+  "id": "community.shizukuboundary",
+  "name": "Shizuku Boundary",
+  "version": "1.0.0",
+  "description": "Uses only ordinary in-app preview; Shizuku operations are not accessible to imported mods.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": ["ui.preview"],
+  "sdkApiVersion": 2
+}

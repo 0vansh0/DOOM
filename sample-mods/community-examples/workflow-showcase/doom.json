@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 3,
+  "id": "community.workflowshowcase",
+  "name": "Workflow Showcase",
+  "version": "1.0.0",
+  "description": "Ordered sequential charging ring and floating-card workflow.",
+  "author": "DOOM SDK sample (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "battery.read",
+    "overlay.render"
+  ],
+  "sdkApiVersion": 2
+}

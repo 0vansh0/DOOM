@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 3,
+  "id": "local.focuspulse",
+  "name": "Focus Pulse",
+  "version": "1.0.0",
+  "description": "Public SDK API 2 example. No privileged operations.",
+  "author": "DOOM SDK example author (unverified)",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "",
+  "capabilities": [
+    "haptics.vibrate"
+  ],
+  "sdkApiVersion": 2
+}

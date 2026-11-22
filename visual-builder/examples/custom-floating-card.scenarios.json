@@ -1,0 +1,20 @@
+{
+  "formatVersion": 1,
+  "scenarios": [
+    {
+      "id": "custom-floating-card-smoke",
+      "event": {
+        "event": "mod.manual.trigger",
+        "metadata": {}
+      },
+      "androidPermissions": [],
+      "expected": {
+        "conditionResult": true,
+        "actionSequence": [
+          "manual-card:card"
+        ],
+        "suppressedActions": []
+      }
+    }
+  ]
+}

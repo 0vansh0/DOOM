@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "id": "community.batteryglow",
+  "name": "Battery Glow",
+  "version": "2.0.0",
+  "description": "Development sample for an appearance preview and charging-triggered overlay declaration.",
+  "author": "DOOM contributors",
+  "license": "MIT",
+  "minAndroidApi": 31,
+  "modType": "declarative",
+  "entry": "mod.json",
+  "icon": "assets/glow.png",
+  "capabilities": [
+    "battery.read",
+    "overlay.render",
+    "ui.preview"
+  ]
+}

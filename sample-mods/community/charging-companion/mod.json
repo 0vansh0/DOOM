@@ -1,0 +1,22 @@
+{
+  "definitionVersion": 4,
+  "triggers": [
+    {
+      "id": "charging-start",
+      "event": "battery.charging.started",
+      "condition": { "op": "compare", "source": "battery.charging", "comparison": "equals", "value": true },
+      "workflow": { "id": "charging-start-workflow", "executionMode": "sequential", "failurePolicy": "stopOnFailure", "timeoutMs": 10000 },
+      "actions": [
+        { "id": "ring", "effect": "overlay.show", "template": "battery-ring", "parameters": { "durationMs": 6000, "color": "#A78BFA" } },
+        { "id": "message", "effect": "overlay.show", "template": "floating-card", "parameters": { "message": "Charging started", "durationMs": 6000 } }
+      ]
+    },
+    {
+      "id": "charging-stop",
+      "event": "battery.charging.stopped",
+      "condition": { "op": "compare", "source": "battery.charging", "comparison": "equals", "value": false },
+      "actions": [{ "id": "dismiss", "effect": "overlay.dismiss" }]
+    }
+  ],
+  "settings": { "enabled": { "type": "boolean", "label": "Enable companion", "default": true } }
+}

@@ -1,0 +1,15 @@
+{
+  "definitionVersion": 4,
+  "triggers": [{
+    "id": "shizuku-boundary",
+    "event": "mod.manual.trigger",
+    "condition": { "op": "compare", "source": "setting.enabled", "comparison": "equals", "value": true },
+    "actions": [{
+      "id": "in-app-fallback",
+      "effect": "ui.preview.show",
+      "template": "floating-card",
+      "parameters": { "title": "Safe fallback", "message": "This declarative mod uses no Shizuku operation.", "durationMs": 3000 }
+    }]
+  }],
+  "settings": { "enabled": { "type": "boolean", "label": "Enable safe fallback", "default": true } }
+}

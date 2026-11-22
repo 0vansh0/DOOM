@@ -1,0 +1,92 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: doom_marketplace
+      POSTGRES_USER: doom
+      POSTGRES_PASSWORD: doom_local_only
+    ports: ["127.0.0.1:5438:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U doom -d doom_marketplace"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+  minio:
+    # SeaweedFS is the local S3-compatible backend. Keep the service name and
+    # S3 endpoint stable for the API and existing developer integrations.
+    image: chrislusf/seaweedfs:4.54@sha256:4b42c212543a0acd4c0e675215ecdcaf62a186ef98def76c7e12701871222d15
+    command: ["server", "-dir=/data", "-s3", "-s3.port=9000", "-s3.iam=false", "-iam=false", "-volume.max=0", "-master.volumeSizeLimitMB=64"]
+    environment:
+      AWS_ACCESS_KEY_ID: doom_local
+      AWS_SECRET_ACCESS_KEY: doom_local_secret_change_me
+      WEED_JWT_FILER_SIGNING_KEY: doom_marketplace_local_filer_signing_key_change_before_exposure_2026
+    ports: ["127.0.0.1:9000:9000"]
+    volumes: ["seaweedfsdata:/data"]
+  storage-init:
+    image: amazon/aws-cli:2.41.1@sha256:538a9a80bc7c78e3228bc65100404a5dbd89ad812a547004c05ea20109543432
+    depends_on:
+      minio: { condition: service_started }
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        until aws --endpoint-url http://minio:9000 s3api list-buckets >/dev/null 2>&1; do sleep 1; done;
+        for bucket in doom-quarantine doom-published; do
+          if ! aws --endpoint-url http://minio:9000 s3api head-bucket --bucket "$$bucket" >/dev/null 2>&1; then
+            aws --endpoint-url http://minio:9000 s3api create-bucket --bucket "$$bucket";
+          fi;
+        done;
+        printf 'DOOM S3 readiness check' >/tmp/doom-s3-readiness;
+        aws --endpoint-url http://minio:9000 s3api put-object --bucket doom-quarantine --key .doom-storage-init/healthcheck --body /tmp/doom-s3-readiness >/dev/null;
+        aws --endpoint-url http://minio:9000 s3api head-object --bucket doom-quarantine --key .doom-storage-init/healthcheck >/dev/null;
+        aws --endpoint-url http://minio:9000 s3api delete-object --bucket doom-quarantine --key .doom-storage-init/healthcheck >/dev/null;
+        echo 'Private DOOM S3 buckets are ready.'
+    environment:
+      AWS_ACCESS_KEY_ID: doom_local
+      AWS_SECRET_ACCESS_KEY: doom_local_secret_change_me
+      AWS_DEFAULT_REGION: us-east-1
+  api:
+    build:
+      context: ..
+      dockerfile: marketplace-api/Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      APP_ENVIRONMENT: local
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 8787
+      DATABASE_URL: postgres://doom:doom_local_only@postgres:5432/doom_marketplace
+      DATABASE_SSL_MODE: disable
+      JWT_SECRET: local-only-marketplace-jwt-secret-change-before-exposure
+      ACCESS_TOKEN_TTL_SECONDS: 900
+      ARGON2_MEMORY_KIB: 65536
+      ALLOWED_ORIGINS: http://localhost:5173
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: us-east-1
+      S3_ACCESS_KEY_ID: doom_local
+      S3_SECRET_ACCESS_KEY: doom_local_secret_change_me
+      S3_FORCE_PATH_STYLE: "true"
+      S3_QUARANTINE_BUCKET: doom-quarantine
+      S3_PUBLISHED_BUCKET: doom-published
+      UPLOAD_MAX_BYTES: 10485760
+      UPLOADS_PER_DAY: 20
+      UPLOAD_BYTES_PER_DAY: 104857600
+      WORKER_TIMEOUT_MS: 15000
+      VALIDATOR_CONCURRENCY: 2
+    ports: ["127.0.0.1:8787:8787"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:8787/ready',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    depends_on:
+      postgres: { condition: service_healthy }
+      storage-init: { condition: service_completed_successfully }
+volumes:
+  pgdata:
+  # Retained so an existing MinIO volume is never deleted by this change.
+  miniodata:
+  seaweedfsdata:

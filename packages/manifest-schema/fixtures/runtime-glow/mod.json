@@ -1,0 +1,54 @@
+{
+  "definitionVersion": 2,
+  "triggers": [
+    {
+      "event": "battery.charging.started",
+      "effect": "charging-ring",
+      "condition": "charging"
+    },
+    {
+      "event": "battery.charging.stopped",
+      "effect": "clear-ring"
+    },
+    {
+      "event": "mod.manual.trigger",
+      "effect": "manual-preview"
+    }
+  ],
+  "effects": [
+    {
+      "id": "charging-ring",
+      "effect": "overlay.show",
+      "template": "battery-ring",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    },
+    {
+      "id": "clear-ring",
+      "effect": "overlay.dismiss"
+    },
+    {
+      "id": "manual-preview",
+      "effect": "ui.preview.show",
+      "template": "floating-card",
+      "params": {
+        "colorSetting": "color",
+        "intensitySetting": "intensity"
+      }
+    }
+  ],
+  "settings": {
+    "color": {
+      "type": "color",
+      "default": "#B48CFF"
+    },
+    "intensity": {
+      "type": "integer",
+      "min": 10,
+      "max": 60,
+      "default": 45
+    }
+  }
+}

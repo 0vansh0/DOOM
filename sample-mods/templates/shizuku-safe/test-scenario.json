@@ -1,0 +1,1 @@
+{"formatVersion":1,"scenarios":[{"id":"shizuku-unavailable-safe-in-app-fallback","event":{"event":"mod.manual.trigger"},"expected":{"conditionResult":true,"actionSequence":["shizuku-boundary:in-app-fallback"],"suppressedActions":[]}}]}

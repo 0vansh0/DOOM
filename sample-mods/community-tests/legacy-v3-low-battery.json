@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "scenarios": [{
+    "id": "legacy-v3-battery-threshold-setting",
+    "initialSettings": { "threshold": 30 },
+    "event": { "event": "mod.manual.trigger", "metadata": { "batteryLevel": 20 } },
+    "expected": {
+      "conditionResult": true,
+      "actionSequence": ["mod.manual.trigger:show"],
+      "suppressedActions": []
+    }
+  }]
+}
